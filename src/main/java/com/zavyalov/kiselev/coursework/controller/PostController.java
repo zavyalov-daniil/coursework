@@ -42,10 +42,15 @@ public class PostController {
         return service.save(postForm);
     }
 
-    //@PatchMapping(path = "/{postId}")
-    //public ResponseEntity<?> updatePost() {
+    @PatchMapping(path = "/{postId}")
+    public PostView updatePostText(@PathVariable Integer postId, @RequestBody String text) {
+        return service.changeText(postId, text);
+    }
 
-    //}
+    @PatchMapping(path = "/{postId}")
+    public PostView updatePostTitle(@PathVariable Integer postId, @RequestBody String title) {
+        return service.changeTitle(postId, title);
+    }
 
     @DeleteMapping(path = "/{postId}")
     @ResponseStatus(HttpStatus.OK)

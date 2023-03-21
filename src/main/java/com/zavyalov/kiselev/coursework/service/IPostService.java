@@ -11,6 +11,8 @@ public interface IPostService {
     List<PostView> getAllPosts();
     PostView findPostById(Integer postId);
     PostView save(PostForm postForm);
+    PostView changeTitle(Integer id, String title);
+    PostView changeText(Integer id, String text);
     void delete(Integer postId);
     void deleteAll();
 }
