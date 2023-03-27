@@ -1,0 +1,75 @@
+version: "3"
+
+services:
+  db_neo4j:
+    container_name: neo4jForCourseWork
+    #    build: ./neo4j/
+    image: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/test1234567890
+    volumes:
+      - $HOME/neo4j/data:/data
+      - ./export/neo4j/var/lib/neo4j/conf:/var/lib/neo4j/conf
+      - $HOME/neo4j/logs:/logs
+      - $HOME/neo4j/import:/var/lib/neo4j/import
+      - $HOME/neo4j/plugins:/plugins
+    #    networks:
+    #      db_net:
+    restart: 'no'
+    #always на проде # no на dev
+
+  db_postgre:
+    container_name: postgreForCourseWork
+    image: postgres
+    volumes:
+      - $HOME/postgresql:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test1234567890
+    ports:
+      - "5434:5433"
+    #    networks:
+    #      db_net:
+
+    restart: 'no'
+
+  #networks:
+  #  db_net:
+  #    driver: bridge
+  #    internal: true
+  #  default:
+  #      ???
+  
+  #  TODO: app: //Не забыть прописать зависимости от баз
+  #    image: 'java:latest'
+  #    build:
+  #      context: .
+  #    container_name: app
+  #    depends_on:
+  #      - db
+  #    environment:
+  #      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+  #      - SPRING_DATASOURCE_USERNAME=compose-postgres
+  #      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+  #      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  #    networks:
+  #      db_net:
+  #      default:
+
+  #
+  #    --name testneo4j
+  #    -p 7474:7474
+  #    -p 7687:7687
+  #    -d
+  #    -v $HOME/neo4j/data:/data
+  #    -v $HOME/neo4j/logs:/logs
+  #    -v $HOME/neo4j/import:/var/lib/neo4j/import
+  #    -v $HOME/neo4j/plugins:/plugins
+  #    --env NEO4J_AUTH=neo4j/test1234567890
+
+#  db_postgre:
+#  db_s4:
+#  app_backend:
