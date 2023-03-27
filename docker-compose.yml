@@ -24,11 +24,13 @@ services:
   db_postgre:
     container_name: postgreForCourseWork
     image: postgres
+    volumes:
+      - $HOME/postgresql:/var/lib/postgresql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test1234567890
     ports:
-      - "5433:5433"
+      - "5434:5433"
     #    networks:
     #      db_net:
 
@@ -41,7 +43,7 @@ services:
   #  default:
   #      ???
   
-  #  app:
+  #  TODO: app: //Не забыть прописать зависимости от баз
   #    image: 'java:latest'
   #    build:
   #      context: .
