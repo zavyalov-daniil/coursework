@@ -67,12 +67,12 @@ public class SimplePostService implements IPostService {
         postRepository.deteleAll();
     }
 
-    private PostView postEntityToView(PostEntity entity) {
+    private PostView convertPostEntityToView(PostEntity entity) {
         //TODO: PostView postEntityToView(PostEntity) {}
         return null;
     }
 
-    private PostEntity postFormToEntity(PostForm form) {
+    private PostEntity convertPostFormToEntity(PostForm form) {
         //TODO: PostEntity postFormToEntity(PostForm){}
         return null;
     }
