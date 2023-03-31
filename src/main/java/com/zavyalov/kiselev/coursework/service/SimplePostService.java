@@ -2,6 +2,7 @@ package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.entity.PostEntity;
 import com.zavyalov.kiselev.coursework.form.PostForm;
+import com.zavyalov.kiselev.coursework.repository.PostRepository;
 import com.zavyalov.kiselev.coursework.view.PostView;
 import org.apache.catalina.startup.ClassLoaderFactory;
 
