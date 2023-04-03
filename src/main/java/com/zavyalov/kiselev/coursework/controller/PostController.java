@@ -47,12 +47,12 @@ public class PostController {
         return service.changeText(postId, text);
     }
 
-    @PatchMapping(path = "/{postId}")
+    @PatchMapping(path = "/{postId}/title")
     public PostView updatePostTitle(@PathVariable Integer postId, @RequestBody String title) {
         return service.changeTitle(postId, title);
     }
 
-    @DeleteMapping(path = "/{postId}")
+    @DeleteMapping(path = "/{postId}/text")
     @ResponseStatus(HttpStatus.OK)
     public void deletePost(@PathVariable Integer postId) {
         service.delete(postId);
