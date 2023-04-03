@@ -1,10 +1,10 @@
 package com.zavyalov.kiselev.coursework.controller;
 
+import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.service.IPostService;
 import com.zavyalov.kiselev.coursework.view.PostView;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +32,8 @@ public class PostController {
 
     @GetMapping(path = "/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostView getPostById(@PathVariable Integer postId) {
-        return service.findPostById(postId);
+    public PostView getPostById(@PathVariable Integer postId) throws PostNotFoundException {
+        return service.findPostById(postId).orElseThrow(PostNotFoundException::new);
     }
 
     @PostMapping()

@@ -1,49 +1,56 @@
 package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.entity.PostEntity;
+import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
 import com.zavyalov.kiselev.coursework.form.PostForm;
+import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
 import com.zavyalov.kiselev.coursework.repository.PostRepository;
 import com.zavyalov.kiselev.coursework.view.PostView;
-import org.apache.catalina.startup.ClassLoaderFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class SimplePostService implements IPostService {
 
-    PostRepository postRepository;
-    NeoRepository neoRepository;
+    PostRepository postgresRepository;
+    PostNeo4jRepository neo4jRepository;
+    PostConverter converter;
 
-    public SimplePostService(PostRepository postRepo, NeoRepository neoRepository) {
-        this.postRepository = postRepo;
-        this.neoRepository = neoRepository;
+    public SimplePostService(PostRepository postgresRepository, PostNeo4jRepository neo4jRepository, PostConverter converter) {
+        this.postgresRepository = postgresRepository;
+        this.neo4jRepository = neo4jRepository;
+        this.converter = converter;
     }
 
     @Override
     public List<PostView> getAllPosts() {
-        List<PostEntity> entityList = postRepository.findAll();
-        List<PostView> res = new ArrayList<PostView>();
+        List<PostEntity> entityList = postgresRepository.findAll();
+        List<PostView> res = new ArrayList<>();
 
         for (PostEntity post : entityList) {
-            res.add(postEntityToView(post));
+            res.add(converter.postEntityToView(post));
         }
 
         return res;
     }
 
     @Override
-    public PostView findPostById(Integer postId) {
-
-        PostView res = postEntityToView(postRepository.findByID(postID));
-        return res;
-
+    public Optional<PostView> findPostById(Integer postId) {
+        Optional<PostEntity> res = postgresRepository.findById(postId);
+        if (res.isPresent()) {
+            return Optional.of(converter.postEntityToView(res.get()));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
     public PostView save(PostForm postForm) {
-        PostEntity entity = postFormToEntity(postForm);
-        PostView view = postEntityToView(entity);
-        return view;
+        PostEntity entity = converter.postFormToEntity(postForm);
+        return converter.postEntityToView(postgresRepository.save(entity));
     }
 
     @Override
@@ -60,12 +67,12 @@ public class SimplePostService implements IPostService {
 
     @Override
     public void delete(Integer postId) {
-        postRepository.deleteById(postId);
+        postgresRepository.deleteById(postId);
     }
 
     @Override
     public void deleteAll() {
-        postRepository.deteleAll();
+        postgresRepository.deleteAll();
     }
 
     private PostView convertPostEntityToView(PostEntity entity) {
