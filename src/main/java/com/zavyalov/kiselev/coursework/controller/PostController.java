@@ -32,7 +32,7 @@ public class PostController {
 
     @GetMapping(path = "/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostView getPostById(@PathVariable Integer postId) throws PostNotFoundException {
+    public PostView getPostById(@PathVariable Long postId) throws PostNotFoundException {
         return service.findPostById(postId).orElseThrow(PostNotFoundException::new);
     }
 
@@ -43,18 +43,18 @@ public class PostController {
     }
 
     @PatchMapping(path = "/{postId}")
-    public PostView updatePostText(@PathVariable Integer postId, @RequestBody String text) {
+    public PostView updatePostText(@PathVariable Long postId, @RequestBody String text) {
         return service.changeText(postId, text);
     }
 
     @PatchMapping(path = "/{postId}/title")
-    public PostView updatePostTitle(@PathVariable Integer postId, @RequestBody String title) {
+    public PostView updatePostTitle(@PathVariable Long postId, @RequestBody String title) {
         return service.changeTitle(postId, title);
     }
 
     @DeleteMapping(path = "/{postId}/text")
     @ResponseStatus(HttpStatus.OK)
-    public void deletePost(@PathVariable Integer postId) {
+    public void deletePost(@PathVariable Long postId) {
         service.delete(postId);
     }
 

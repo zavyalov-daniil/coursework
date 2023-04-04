@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public interface IPostService {
     List<PostView> getAllPosts();
-    Optional<PostView> findPostById(Integer postId);
+    Optional<PostView> findPostById(Long postId);
     PostView save(PostForm postForm);
-    PostView changeTitle(Integer id, String title);
-    PostView changeText(Integer id, String text);
-    void delete(Integer postId);
+    PostView changeTitle(Long id, String title);
+    PostView changeText(Long id, String text);
+    void delete(Long postId);
     void deleteAll();
 }

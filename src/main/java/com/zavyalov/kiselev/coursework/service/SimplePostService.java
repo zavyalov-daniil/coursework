@@ -1,6 +1,7 @@
 package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.entity.PostEntity;
+import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
 import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
@@ -38,7 +39,7 @@ public class SimplePostService implements IPostService {
     }
 
     @Override
-    public Optional<PostView> findPostById(Integer postId) {
+    public Optional<PostView> findPostById(Long postId) {
         Optional<PostEntity> res = postgresRepository.findById(postId);
         if (res.isPresent()) {
             return Optional.of(converter.postEntityToView(res.get()));
@@ -49,42 +50,34 @@ public class SimplePostService implements IPostService {
 
     @Override
     public PostView save(PostForm postForm) {
-        PostEntity entity = converter.postFormToEntity(postForm);
+        PostNodeEntity nodeEntity = converter.postFormToNodeEntity(postForm);
+        nodeEntity = neo4jRepository.save(nodeEntity);
+        PostEntity entity = new PostEntity(nodeEntity.getId(), postForm.getTitle(), postForm.getText());
         return converter.postEntityToView(postgresRepository.save(entity));
     }
 
     @Override
-    public PostView changeTitle(Integer id, String title) {
+    public PostView changeTitle(Long id, String title) {
         // todo ???
         return null;
     }
 
     @Override
-    public PostView changeText(Integer id, String text) {
+    public PostView changeText(Long id, String text) {
         // todo ???
         return null;
     }
 
     @Override
-    public void delete(Integer postId) {
-        postgresRepository.deleteById(postId);
+    public void delete(Long postId) {
+
     }
 
     @Override
     public void deleteAll() {
+        neo4jRepository.deleteAll();
         postgresRepository.deleteAll();
     }
-
-    private PostView convertPostEntityToView(PostEntity entity) {
-        //TODO: PostView postEntityToView(PostEntity) {}
-        return null;
-    }
-
-    private PostEntity convertPostFormToEntity(PostForm form) {
-        //TODO: PostEntity postFormToEntity(PostForm){}
-        return null;
-    }
-
 }
 
 
