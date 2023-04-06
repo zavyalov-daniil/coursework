@@ -41,18 +41,14 @@ public class SimplePostService implements IPostService {
     @Override
     public Optional<PostView> findPostById(Long postId) {
         Optional<PostEntity> res = postgresRepository.findById(postId);
-        if (res.isPresent()) {
-            return Optional.of(converter.postEntityToView(res.get()));
-        } else {
-            return Optional.empty();
-        }
+        return res.map(entity -> converter.postEntityToView(entity));
     }
 
     @Override
     public PostView save(PostForm postForm) {
         PostNodeEntity nodeEntity = converter.postFormToNodeEntity(postForm);
         nodeEntity = neo4jRepository.save(nodeEntity);
-        PostEntity entity = new PostEntity(nodeEntity.getId(), postForm.getTitle(), postForm.getText());
+        PostEntity entity = converter.postFormAndNodeToEntity(postForm, nodeEntity);
         return converter.postEntityToView(postgresRepository.save(entity));
     }
 
