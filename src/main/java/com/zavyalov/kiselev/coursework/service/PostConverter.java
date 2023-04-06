@@ -14,11 +14,6 @@ public class PostConverter {
         return new PostView(entity.getId(), entity.getTitle(), entity.getText());
     }
 
-    @Deprecated
-    public PostEntity postFormToEntity(PostForm form) {
-        return new PostEntity(null, form.getTitle(), form.getText());
-    }
-
     public PostNodeEntity postFormToNodeEntity(PostForm form) {
         return new PostNodeEntity(null, form.getTitle(), form.getText(), new HashSet<PostNodeEntity>());
     }

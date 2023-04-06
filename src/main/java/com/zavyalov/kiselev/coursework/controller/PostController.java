@@ -42,17 +42,17 @@ public class PostController {
         return service.save(postForm);
     }
 
-    @PatchMapping(path = "/{postId}")
-    public PostView updatePostText(@PathVariable Long postId, @RequestBody String text) {
-        return service.changeText(postId, text);
+    @PatchMapping(path = "/{postId}/text")
+    public PostView updatePostText(@PathVariable Long postId, @RequestBody String text) throws PostNotFoundException {
+        return service.changeText(postId, text).orElseThrow(PostNotFoundException::new);
     }
 
     @PatchMapping(path = "/{postId}/title")
-    public PostView updatePostTitle(@PathVariable Long postId, @RequestBody String title) {
-        return service.changeTitle(postId, title);
+    public PostView updatePostTitle(@PathVariable Long postId, @RequestBody String title) throws PostNotFoundException {
+        return service.changeTitle(postId, title).orElseThrow(PostNotFoundException::new);
     }
 
-    @DeleteMapping(path = "/{postId}/text")
+    @DeleteMapping(path = "/{postId}")
     @ResponseStatus(HttpStatus.OK)
     public void deletePost(@PathVariable Long postId) {
         service.delete(postId);

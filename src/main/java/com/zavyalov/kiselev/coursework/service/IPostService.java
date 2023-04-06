@@ -10,8 +10,8 @@ public interface IPostService {
     List<PostView> getAllPosts();
     Optional<PostView> findPostById(Long postId);
     PostView save(PostForm postForm);
-    PostView changeTitle(Long id, String title);
-    PostView changeText(Long id, String text);
+    Optional<PostView> changeTitle(Long id, String title);
+    Optional<PostView> changeText(Long id, String text);
     void delete(Long postId);
     void deleteAll();
 }

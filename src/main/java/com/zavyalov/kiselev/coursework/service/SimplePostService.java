@@ -53,20 +53,46 @@ public class SimplePostService implements IPostService {
     }
 
     @Override
-    public PostView changeTitle(Long id, String title) {
-        // todo ???
-        return null;
+    public Optional<PostView> changeTitle(Long id, String title) {
+        Optional<PostEntity> entityOptional = postgresRepository.findById(id);
+        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
+        if(entityOptional.isPresent() && nodeEntityOptional.isPresent()) {
+            PostEntity entity =  entityOptional.get();
+            entity.setTitle(title);
+            PostNodeEntity nodeEntity = nodeEntityOptional.get();
+            nodeEntity.setTitle(title);
+            neo4jRepository.save(nodeEntity);
+            return Optional.of(converter.postEntityToView(postgresRepository.save(entity)));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
-    public PostView changeText(Long id, String text) {
-        // todo ???
-        return null;
+    public Optional<PostView> changeText(Long id, String text) {
+        Optional<PostEntity> entityOptional = postgresRepository.findById(id);
+        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
+        if(entityOptional.isPresent() && nodeEntityOptional.isPresent()) {
+            PostEntity entity =  entityOptional.get();
+            entity.setTitle(text);
+            PostNodeEntity nodeEntity = nodeEntityOptional.get();
+            nodeEntity.setTitle(text);
+            neo4jRepository.save(nodeEntity);
+            return Optional.of(converter.postEntityToView(postgresRepository.save(entity)));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
     public void delete(Long postId) {
-
+        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(postId);
+        if (nodeEntityOptional.isPresent()) {
+            PostNodeEntity nodeEntity = nodeEntityOptional.get();
+            nodeEntity.setTitle("");
+            nodeEntity.setText("");
+        }
+        postgresRepository.deleteById(postId);
     }
 
     @Override

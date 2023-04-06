@@ -14,5 +14,4 @@ import java.util.Set;
 public class PostForm {
     private String title;
     private String text;
-    private Long id;
 }
