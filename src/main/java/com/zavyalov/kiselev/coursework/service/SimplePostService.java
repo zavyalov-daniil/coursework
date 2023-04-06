@@ -2,18 +2,19 @@ package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.entity.PostEntity;
 import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
-import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
 import com.zavyalov.kiselev.coursework.repository.PostRepository;
 import com.zavyalov.kiselev.coursework.view.PostView;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class SimplePostService implements IPostService {
 
     PostRepository postgresRepository;
@@ -91,6 +92,7 @@ public class SimplePostService implements IPostService {
             PostNodeEntity nodeEntity = nodeEntityOptional.get();
             nodeEntity.setTitle("");
             nodeEntity.setText("");
+            neo4jRepository.save(nodeEntity);
         }
         postgresRepository.deleteById(postId);
     }
