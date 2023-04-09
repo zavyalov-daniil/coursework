@@ -1,16 +1,21 @@
 package com.zavyalov.kiselev.coursework;
 
 import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
+import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
+import com.zavyalov.kiselev.coursework.service.IPostService;
+import com.zavyalov.kiselev.coursework.view.PostView;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.neo4j.config.EnableNeo4jAuditing;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
+@EnableNeo4jAuditing
 public class CourseworkApplication {
 
     public static void main(String[] args) {
@@ -18,11 +23,18 @@ public class CourseworkApplication {
     }
 
     @Bean
-    CommandLineRunner demo(PostNeo4jRepository rep) {
+    CommandLineRunner demo(IPostService service, PostNeo4jRepository repository) {
         return args -> {
-            rep.deleteAll();
-            PostNodeEntity first = new PostNodeEntity(null, "Main", "Main post", new HashSet<>());
-            rep.save(first);
+            //Создание тестовых постов
+            service.deleteAll();
+            PostForm first = new PostForm("Main", "Main post", -1L);
+            PostForm p2 = new PostForm("p2", " dfpost", service.save(first).getId());
+            PostForm p3 = new PostForm("p3", " dfpost", service.save(p2).getId());
+            Long parId = service.save(p3).getId();
+            PostForm p4 = new PostForm("p4", " fdpost", parId);
+            PostForm p5 = new PostForm("p5", "sd post", parId);
+            service.save(p4);
+            service.save(p5);
         };
     }
 }

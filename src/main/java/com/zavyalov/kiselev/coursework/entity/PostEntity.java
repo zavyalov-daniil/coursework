@@ -1,13 +1,12 @@
 package com.zavyalov.kiselev.coursework.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -18,9 +17,14 @@ import lombok.Setter;
 public class PostEntity {
     @Id
     private Long id;
+
     @Column(name = "title", nullable = false)
     private String title;
+
     @Column(name = "text", nullable = false)
     private String text;
-    //Date creationTime;
+
+    @Column(name = "creation_time", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationTime;
 }

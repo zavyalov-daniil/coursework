@@ -16,16 +16,16 @@ public class PostConverter {
     private PostNeo4jRepository neo4jRepository;
 
     public PostView postEntityToView(PostEntity entity) {
-        return new PostView(entity.getId(), entity.getTitle(), entity.getText());
+        return new PostView(entity.getId(), entity.getTitle(), entity.getText(), entity.getCreationTime());
     }
 
     public PostNodeEntity postFormToNodeEntity(PostForm form) {
         HashSet<PostNodeEntity> parent = new HashSet<>();
         neo4jRepository.findById(form.getParentPostId()).ifPresent(parent::add);
-        return new PostNodeEntity(null, form.getTitle(), form.getText(), parent);
+        return new PostNodeEntity(form.getTitle(), form.getText(), parent);
     }
 
     public PostEntity postFormAndNodeToEntity(PostForm postForm, PostNodeEntity postNodeEntity) {
-        return new PostEntity(postNodeEntity.getId(), postForm.getTitle(), postForm.getText());
+        return new PostEntity(postNodeEntity.getId(), postForm.getTitle(), postForm.getText(), postNodeEntity.getCreationTime());
     }
 }
