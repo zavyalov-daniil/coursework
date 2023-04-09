@@ -1,6 +1,7 @@
 package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.config.CommandsConfig;
+import com.zavyalov.kiselev.coursework.config.PermissionsConfig;
 import com.zavyalov.kiselev.coursework.service.Commands.ICommand;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,12 +12,6 @@ import java.util.Map;
 
 @Service
 public class PermissionManager {
-    private Map<String, List<String>> rolesPermissions;
-    String role;
-
-    public PermissionManager() {
-    }
-
     /**
      * returns requested command .
      * cmdLabel - name of the command for Factory pattern.
@@ -25,7 +20,10 @@ public class PermissionManager {
      * ВАЖНО: Если команды не существует, он вернёт null вместо ошибки.
      * TODO: разрешения второго уровня (пользователь-пользователю)
      */
-    public ICommand getCommand(String cmdLabel, List<Object> args) {
+    public static ICommand getCommand(String cmdLabel, List<Object> args) {
+        ApplicationContext permissionsContext = new AnnotationConfigApplicationContext(PermissionsConfig.class);
+        Map<String, List<String>> rolesPermissions = (Map<String, List<String>>) permissionsContext.getBean("permissions");
+        String role = (String) permissionsContext.getBean("role");
         ICommand cmd = null;
         if (rolesPermissions.get(role).contains(cmdLabel)) {
             ApplicationContext context = new AnnotationConfigApplicationContext(CommandsConfig.class);//Получает бины из конфига, в котором хранятся конструкторы для команд.
