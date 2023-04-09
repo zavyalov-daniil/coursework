@@ -21,7 +21,7 @@ public class PostController {
     @GetMapping(path = "/new")
     @ResponseStatus(HttpStatus.OK)
     public PostForm getPostForm() {
-        return new PostForm();
+        return service.getPostForm();
     }
 
     @GetMapping()

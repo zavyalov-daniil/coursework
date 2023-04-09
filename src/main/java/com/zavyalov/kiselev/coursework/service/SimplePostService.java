@@ -28,6 +28,11 @@ public class SimplePostService implements IPostService {
     }
 
     @Override
+    public PostForm getPostForm() {
+        return new PostForm();
+    }
+
+    @Override
     public List<PostView> getAllPosts() {
         List<PostEntity> entityList = postgresRepository.findAll();
         List<PostView> res = new ArrayList<>();

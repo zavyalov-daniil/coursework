@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPostService {
+    PostForm getPostForm();
     List<PostView> getAllPosts();
     Optional<PostView> findPostById(Long postId);
     PostView save(PostForm postForm);
