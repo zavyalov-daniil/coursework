@@ -9,9 +9,7 @@ import com.zavyalov.kiselev.coursework.view.PostView;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -80,9 +78,9 @@ public class SimplePostService implements IPostService {
         Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
         if(entityOptional.isPresent() && nodeEntityOptional.isPresent()) {
             PostEntity entity =  entityOptional.get();
-            entity.setTitle(text);
+            entity.setText(text);
             PostNodeEntity nodeEntity = nodeEntityOptional.get();
-            nodeEntity.setTitle(text);
+            nodeEntity.setText(text);
             neo4jRepository.save(nodeEntity);
             return Optional.of(converter.postEntityToView(postgresRepository.save(entity)));
         } else {
