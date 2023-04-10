@@ -3,14 +3,18 @@ package com.zavyalov.kiselev.coursework.service;
 import com.zavyalov.kiselev.coursework.config.CommandsConfig;
 import com.zavyalov.kiselev.coursework.config.PermissionsConfig;
 import com.zavyalov.kiselev.coursework.service.Commands.ICommand;
+import lombok.NoArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Scope(value = "singleton")
+@NoArgsConstructor
 public class PermissionManager {
     /**
      * returns requested command .
@@ -20,7 +24,7 @@ public class PermissionManager {
      * ВАЖНО: Если команды не существует, он вернёт null вместо ошибки.
      * TODO: разрешения второго уровня (пользователь-пользователю)
      */
-    public static ICommand getCommand(String cmdLabel, List<Object> args) {
+    public ICommand getCommand(String cmdLabel, List<Object> args) {
         ApplicationContext permissionsContext = new AnnotationConfigApplicationContext(PermissionsConfig.class);
         Map<String, List<String>> rolesPermissions = (Map<String, List<String>>) permissionsContext.getBean("permissions");
         String role = (String) permissionsContext.getBean("role");
