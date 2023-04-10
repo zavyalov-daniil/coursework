@@ -22,7 +22,7 @@ public class PostConverter {
     public PostNodeEntity postFormToNodeEntity(PostForm form) {
         HashSet<PostNodeEntity> parent = new HashSet<>();
         neo4jRepository.findById(form.getParentPostId()).ifPresent(parent::add);
-        return new PostNodeEntity(form.getTitle(), form.getText(), parent);
+        return new PostNodeEntity(form.getText(), form.getTitle(), parent);
     }
 
     public PostEntity postFormAndNodeToEntity(PostForm postForm, PostNodeEntity postNodeEntity) {
