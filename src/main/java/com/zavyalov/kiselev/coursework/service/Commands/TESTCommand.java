@@ -1,10 +1,15 @@
 package com.zavyalov.kiselev.coursework.service.Commands;
 
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class TESTCommand implements ICommand {
     Object[] arguments;
 
-    public TESTCommand(Object[] args) {
-        this.arguments = args;
+    public TESTCommand(Object... arguments) {
+        this.arguments = arguments;
     }
 
     @Override
