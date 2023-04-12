@@ -1,6 +1,7 @@
 package com.zavyalov.kiselev.coursework.servicesTests.rolesTest;
 
 import com.zavyalov.kiselev.coursework.config.CommandsConfig;
+import com.zavyalov.kiselev.coursework.service.Commands.CommandFactory;
 import com.zavyalov.kiselev.coursework.service.Commands.ICommand;
 import com.zavyalov.kiselev.coursework.service.Commands.TESTCommand;
 import com.zavyalov.kiselev.coursework.service.PermissionManager;
@@ -41,6 +42,30 @@ public class PermissionManagerTest {
         cmd = (ICommand) context.getBean("testCMD", "aaa", "bbb");
         cmd.Execute();
         Assert.assertNotNull(cmd);
+    }
 
+    @Test
+    public void commandFactoryTest() {
+        ICommand cmd1 = null;
+        cmd1 = CommandFactory.getCommand("testCommand", "one", "two", 42);
+        ICommand cmd2 = null;
+        cmd2 = CommandFactory.getCommand("emptyMacroCommand");
+
+        Assert.assertNotNull(cmd1);
+        Assert.assertNotNull(cmd2);
+
+    }
+
+    @Test
+    public void lambdaTest() {
+        interface TotalCommander {
+            public ICommand getCommand(Object... args);
+        }
+        TotalCommander cmder;
+        cmder = (Object... args) -> {
+            return new TESTCommand(args);
+        };
+        ICommand cmd = cmder.getCommand("one", "two");
+        cmd.Execute();
     }
 }
