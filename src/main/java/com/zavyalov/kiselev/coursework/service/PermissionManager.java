@@ -19,19 +19,20 @@ public class PermissionManager {
     /**
      * returns requested command .
      * cmdLabel - name of the command for Factory pattern.
-     * args - list of arguments for ICommand implementation constructor. May be empty. Depends on command you want to get
+     * arguments - array of arguments for ICommand implementation constructor. May be empty. Depends on command you want to get
      * <p>
      * ВАЖНО: Если команды не существует, он вернёт null вместо ошибки.
      * TODO: разрешения второго уровня (пользователь-пользователю)
      */
-    public ICommand getCommand(String cmdLabel, List<Object> args) {
+    public ICommand getCommand(String cmdLabel, Object[] arguments) {
         ApplicationContext permissionsContext = new AnnotationConfigApplicationContext(PermissionsConfig.class);
         Map<String, List<String>> rolesPermissions = (Map<String, List<String>>) permissionsContext.getBean("permissions");
         String role = (String) permissionsContext.getBean("role");
         ICommand cmd = null;
+
         if (rolesPermissions.get(role).contains(cmdLabel)) {
             ApplicationContext context = new AnnotationConfigApplicationContext(CommandsConfig.class);//Получает бины из конфига, в котором хранятся конструкторы для команд.
-            cmd = (ICommand) (context.getBean(cmdLabel, args));
+            cmd = (ICommand) (context.getBean(cmdLabel, arguments));
         }
 
         return cmd;
