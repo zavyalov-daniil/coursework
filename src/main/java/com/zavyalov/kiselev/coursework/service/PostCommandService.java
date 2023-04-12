@@ -2,11 +2,13 @@ package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.view.PostView;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("PostCommandService")
+@NoArgsConstructor
 public class PostCommandService implements IPostService {
 
 
