@@ -25,17 +25,40 @@ public class PermissionManager {
      * TODO: разрешения второго уровня (пользователь-пользователю)
      */
     public ICommand getCommand(String cmdLabel, Object[] arguments) {
-        ApplicationContext permissionsContext = new AnnotationConfigApplicationContext(PermissionsConfig.class);
-        Map<String, List<String>> rolesPermissions = (Map<String, List<String>>) permissionsContext.getBean("permissions");
-        String role = (String) permissionsContext.getBean("role");
-        ICommand cmd = null;
 
-        if (rolesPermissions.get(role).contains(cmdLabel)) {
+        ICommand cmd = null;
+//        if () {
+        if (checkPermission(cmdLabel)) {
             ApplicationContext context = new AnnotationConfigApplicationContext(CommandsConfig.class);//Получает бины из конфига, в котором хранятся конструкторы для команд.
             cmd = (ICommand) (context.getBean(cmdLabel, arguments));
         }
 
         return cmd;
+    }
+
+    
+    public Boolean checkPermission(String cmdLabel) {
+        return checkMapRole(cmdLabel) || checkMapUser(cmdLabel);
+    }
+
+    /**
+     * Checks permissions for roles
+     */
+    private boolean checkMapRole(String cmdLabel) {
+
+        ApplicationContext permissionsContext = new AnnotationConfigApplicationContext(PermissionsConfig.class);
+        Map<String, List<String>> rolesPermissions = (Map<String, List<String>>) permissionsContext.getBean("permissions");
+        String role = (String) permissionsContext.getBean("role");
+
+        return rolesPermissions.get(role).contains(cmdLabel);
+    }
+
+    /**
+     * TODO: checkMapUser
+     * Checks personal permissions for users (2-nd levels permissions)
+     */
+    private boolean checkMapUser(String cmdLabel) {
+        return true;
     }
 
 }
