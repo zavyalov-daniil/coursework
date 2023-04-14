@@ -1,10 +1,10 @@
 package com.zavyalov.kiselev.coursework.controller;
 
+import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.service.IPostService;
 import com.zavyalov.kiselev.coursework.view.PostView;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class PostController {
     @GetMapping(path = "/new")
     @ResponseStatus(HttpStatus.OK)
     public PostForm getPostForm() {
-        return new PostForm();
+        return service.getPostForm();
     }
 
     @GetMapping()
@@ -32,8 +32,8 @@ public class PostController {
 
     @GetMapping(path = "/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostView getPostById(@PathVariable Integer postId) {
-        return service.findPostById(postId);
+    public PostView getPostById(@PathVariable Long postId) throws PostNotFoundException {
+        return service.findPostById(postId).orElseThrow(PostNotFoundException::new);
     }
 
     @PostMapping()
@@ -42,19 +42,21 @@ public class PostController {
         return service.save(postForm);
     }
 
-    @PatchMapping(path = "/{postId}")
-    public PostView updatePostText(@PathVariable Integer postId, @RequestBody String text) {
-        return service.changeText(postId, text);
-    }
-
-    @PatchMapping(path = "/{postId}/title")
-    public PostView updatePostTitle(@PathVariable Integer postId, @RequestBody String title) {
-        return service.changeTitle(postId, title);
-    }
-
-    @DeleteMapping(path = "/{postId}/text")
     @ResponseStatus(HttpStatus.OK)
-    public void deletePost(@PathVariable Integer postId) {
+    @PatchMapping(path = "/{postId}/text")
+    public PostView updatePostText(@PathVariable Long postId, @RequestBody String text) throws PostNotFoundException {
+        return service.changeText(postId, text).orElseThrow(PostNotFoundException::new);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping(path = "/{postId}/title")
+    public PostView updatePostTitle(@PathVariable Long postId, @RequestBody String title) throws PostNotFoundException {
+        return service.changeTitle(postId, title).orElseThrow(PostNotFoundException::new);
+    }
+
+    @DeleteMapping(path = "/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletePost(@PathVariable Long postId) {
         service.delete(postId);
     }
 
