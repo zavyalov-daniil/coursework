@@ -6,12 +6,14 @@ import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
 import com.zavyalov.kiselev.coursework.repository.PostRepository;
 import com.zavyalov.kiselev.coursework.view.PostView;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
+@Primary
 @Transactional
 public class SimplePostService implements IPostService {
 
