@@ -15,7 +15,7 @@ import java.util.List;
 public class PostController {
     IPostService service;
 
-    public PostController(@Qualifier("PostCommandService") IPostService service) {
+    public PostController(IPostService service) {
         this.service = service;
     }
 
