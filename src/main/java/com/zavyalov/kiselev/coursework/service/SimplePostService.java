@@ -15,9 +15,9 @@ import java.util.*;
 @Transactional
 public class SimplePostService implements IPostService {
 
-    PostRepository postgresRepository;
-    PostNeo4jRepository neo4jRepository;
-    PostConverter converter;
+    final PostRepository postgresRepository;
+    final PostNeo4jRepository neo4jRepository;
+    final PostConverter converter;
 
     public SimplePostService(PostRepository postgresRepository, PostNeo4jRepository neo4jRepository, PostConverter converter) {
         this.postgresRepository = postgresRepository;
@@ -60,7 +60,7 @@ public class SimplePostService implements IPostService {
     public Optional<PostView> changeTitle(Long id, String title) {
         Optional<PostEntity> entityOptional = postgresRepository.findById(id);
         Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
-        if(entityOptional.isPresent() && nodeEntityOptional.isPresent()) {
+        if (entityOptional.isPresent() && nodeEntityOptional.isPresent()) {
             PostEntity entity =  entityOptional.get();
             entity.setTitle(title);
             PostNodeEntity nodeEntity = nodeEntityOptional.get();
@@ -76,7 +76,7 @@ public class SimplePostService implements IPostService {
     public Optional<PostView> changeText(Long id, String text) {
         Optional<PostEntity> entityOptional = postgresRepository.findById(id);
         Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
-        if(entityOptional.isPresent() && nodeEntityOptional.isPresent()) {
+        if (entityOptional.isPresent() && nodeEntityOptional.isPresent()) {
             PostEntity entity =  entityOptional.get();
             entity.setText(text);
             PostNodeEntity nodeEntity = nodeEntityOptional.get();
