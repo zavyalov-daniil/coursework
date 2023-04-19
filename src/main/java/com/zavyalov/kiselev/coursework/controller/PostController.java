@@ -4,6 +4,7 @@ import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.service.IPostService;
 import com.zavyalov.kiselev.coursework.view.PostView;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class PostController {
     IPostService service;
 
-    public PostController(IPostService service) {
+    public PostController(@Qualifier("PostCommandService") IPostService service) {
         this.service = service;
     }
 
