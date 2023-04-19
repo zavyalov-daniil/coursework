@@ -29,7 +29,7 @@ public class PostNodeEntity {
     @Property("creationTime")
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    Date creationTime;
+    private Date creationTime;
 
     @Setter
     @Relationship(type = "PARENT_OF", direction = Relationship.Direction.INCOMING)
