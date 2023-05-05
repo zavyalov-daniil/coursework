@@ -22,13 +22,15 @@ services:
     #always на проде # no на dev
 
   db_postgre:
-    container_name: postgreForCourseWork
+    container_name: postgresForCourseWork
     image: postgres
     volumes:
       - $HOME/postgresql:/var/lib/postgresql
+    #        - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: test1234567890
+      - POSTGRES_DB=cw
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test1234567890
     ports:
       - "5434:5432"
     #    networks:
