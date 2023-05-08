@@ -9,8 +9,4 @@ import lombok.Setter;
 @Setter
 public class TESTCmdPackage implements CommandPackage {
     private String result;
-    @Override
-    public String getType() {
-        return "String";
-    }
 }

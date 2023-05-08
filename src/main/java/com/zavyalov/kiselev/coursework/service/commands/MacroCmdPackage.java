@@ -11,9 +11,4 @@ import java.util.List;
 @AllArgsConstructor
 public class MacroCmdPackage implements CommandPackage {
     private List<CommandPackage> packages;
-
-    @Override
-    public String getType() {
-        return "List<CommandPackage>";
-    }
 }
