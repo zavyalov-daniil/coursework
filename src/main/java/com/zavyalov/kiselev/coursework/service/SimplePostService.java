@@ -15,7 +15,7 @@ import java.util.*;
 @Service
 @Primary
 @Transactional
-public class SimplePostService implements IPostService {
+public class SimplePostService {
 
     final PostRepository postgresRepository;
     final PostNeo4jRepository neo4jRepository;
@@ -27,12 +27,10 @@ public class SimplePostService implements IPostService {
         this.converter = converter;
     }
 
-    @Override
     public PostForm getPostForm() {
         return new PostForm();
     }
 
-    @Override
     public List<PostView> getAllPosts() {
         List<PostEntity> entityList = postgresRepository.findAll();
         List<PostView> res = new ArrayList<>();
@@ -44,13 +42,11 @@ public class SimplePostService implements IPostService {
         return res;
     }
 
-    @Override
     public Optional<PostView> findPostById(Long postId) {
         Optional<PostEntity> res = postgresRepository.findById(postId);
         return res.map(entity -> converter.postEntityToView(entity));
     }
 
-    @Override
     public PostView save(PostForm postForm) {
         PostNodeEntity nodeEntity = converter.postFormToNodeEntity(postForm);
         nodeEntity = neo4jRepository.save(nodeEntity);
@@ -58,7 +54,6 @@ public class SimplePostService implements IPostService {
         return converter.postEntityToView(postgresRepository.save(entity));
     }
 
-    @Override
     public Optional<PostView> changeTitle(Long id, String title) {
         Optional<PostEntity> entityOptional = postgresRepository.findById(id);
         Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
@@ -74,7 +69,6 @@ public class SimplePostService implements IPostService {
         }
     }
 
-    @Override
     public Optional<PostView> changeText(Long id, String text) {
         Optional<PostEntity> entityOptional = postgresRepository.findById(id);
         Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
@@ -90,7 +84,6 @@ public class SimplePostService implements IPostService {
         }
     }
 
-    @Override
     public void delete(Long postId) {
         Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(postId);
         if (nodeEntityOptional.isPresent()) {
@@ -102,7 +95,6 @@ public class SimplePostService implements IPostService {
         postgresRepository.deleteById(postId);
     }
 
-    @Override
     public void deleteAll() {
         neo4jRepository.deleteAll();
         postgresRepository.deleteAll();

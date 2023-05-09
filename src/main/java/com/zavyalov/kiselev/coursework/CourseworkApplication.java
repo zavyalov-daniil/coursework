@@ -4,15 +4,13 @@ import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
 import com.zavyalov.kiselev.coursework.service.IPostService;
+import com.zavyalov.kiselev.coursework.service.SimplePostService;
 import com.zavyalov.kiselev.coursework.view.PostView;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.config.EnableNeo4jAuditing;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootApplication
 @EnableNeo4jAuditing
@@ -23,7 +21,7 @@ public class CourseworkApplication {
     }
 
     @Bean
-    CommandLineRunner demo(IPostService service, PostNeo4jRepository repository) {
+    CommandLineRunner demo(SimplePostService service, PostNeo4jRepository repository) {
         return args -> {
             //Создание тестовых постов
             service.deleteAll();
