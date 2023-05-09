@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.service.Commands;
+package com.zavyalov.kiselev.coursework.service.commands;
 
 import org.springframework.stereotype.Service;
 
@@ -25,10 +25,10 @@ public class CommandFactory {
         //TODO: нормальное заполнение мапы с командами
         Map<String, TotalCommander> map = new HashMap<>();
         map.put("testCommand", (Object... arguments) -> {
-            return new TESTCommand(arguments);
+            return new TESTCmd(arguments);
         });
         map.put("emptyMacroCommand", (Object... arguments) -> {
-            return new MacroCommand(new ArrayList<ICommand>());
+            return new MacroCmd(new ArrayList<ICommand>());
         });
         return map;
     }

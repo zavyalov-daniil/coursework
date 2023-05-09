@@ -1,23 +1,19 @@
-package com.zavyalov.kiselev.coursework.service.Commands;
+package com.zavyalov.kiselev.coursework.service.commands;
 
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-public class TESTCommand implements ICommand {
+public class TESTCmd implements ICommand {
     Object[] arguments;
 
-    public TESTCommand(Object... arguments) {
+    public TESTCmd(Object... arguments) {
         this.arguments = arguments;
     }
 
     @Override
-    public void Execute() {
+    public CommandPackage Execute() {
         System.out.println("TEST COMMAND IS WORKING");
         for (Object obj : arguments) {
             System.out.println(obj.toString());
         }
         System.out.println("TEST COMMAND IS FINISHED");
+        return new TESTCmdPackage("TESTCmdPackage");
     }
 }
