@@ -2,7 +2,7 @@ package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.config.CommandsConfig;
 import com.zavyalov.kiselev.coursework.config.PermissionsConfig;
-import com.zavyalov.kiselev.coursework.service.Commands.ICommand;
+import com.zavyalov.kiselev.coursework.service.commands.ICommand;
 import lombok.NoArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

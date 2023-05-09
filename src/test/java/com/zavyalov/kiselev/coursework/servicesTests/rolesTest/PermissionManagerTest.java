@@ -1,9 +1,9 @@
 package com.zavyalov.kiselev.coursework.servicesTests.rolesTest;
 
 import com.zavyalov.kiselev.coursework.config.CommandsConfig;
-import com.zavyalov.kiselev.coursework.service.Commands.CommandFactory;
-import com.zavyalov.kiselev.coursework.service.Commands.ICommand;
-import com.zavyalov.kiselev.coursework.service.Commands.TESTCommand;
+import com.zavyalov.kiselev.coursework.service.commands.CommandFactory;
+import com.zavyalov.kiselev.coursework.service.commands.ICommand;
+import com.zavyalov.kiselev.coursework.service.commands.TESTCmd;
 import com.zavyalov.kiselev.coursework.service.PermissionManager;
 import org.junit.Assert;
 import org.junit.Test;
@@ -63,7 +63,7 @@ public class PermissionManagerTest {
         }
         TotalCommander cmder;
         cmder = (Object... args) -> {
-            return new TESTCommand(args);
+            return new TESTCmd(args);
         };
         ICommand cmd = cmder.getCommand("one", "two");
         cmd.Execute();

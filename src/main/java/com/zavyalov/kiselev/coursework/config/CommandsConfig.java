@@ -1,6 +1,6 @@
 package com.zavyalov.kiselev.coursework.config;
 
-import com.zavyalov.kiselev.coursework.service.Commands.TESTCommand;
+import com.zavyalov.kiselev.coursework.service.commands.TESTCmd;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 public class CommandsConfig {
     @Bean
     @Scope(value = "prototype")
-    TESTCommand testCommand(Object[] args) {
-        return new TESTCommand(args);
+    TESTCmd testCommand(Object[] args) {
+        return new TESTCmd(args);
     }
 }
