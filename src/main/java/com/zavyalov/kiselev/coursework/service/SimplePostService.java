@@ -5,7 +5,9 @@ import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
 import com.zavyalov.kiselev.coursework.repository.PostRepository;
+import com.zavyalov.kiselev.coursework.service.lambda.ChangePostField;
 import com.zavyalov.kiselev.coursework.view.PostView;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +22,10 @@ public class SimplePostService {
     final PostRepository postgresRepository;
     final PostNeo4jRepository neo4jRepository;
     final PostConverter converter;
+    Map<String, ChangePostField> changePostFieldMap;
 
-    public SimplePostService(PostRepository postgresRepository, PostNeo4jRepository neo4jRepository, PostConverter converter) {
+    public SimplePostService(PostRepository postgresRepository, PostNeo4jRepository neo4jRepository, PostConverter converter,
+                             @Qualifier("changePostFieldMap") Map<String, ChangePostField> changePostFieldMap) {
         this.postgresRepository = postgresRepository;
         this.neo4jRepository = neo4jRepository;
         this.converter = converter;
@@ -79,6 +83,18 @@ public class SimplePostService {
             nodeEntity.setText(text);
             neo4jRepository.save(nodeEntity);
             return Optional.of(converter.postEntityToView(postgresRepository.save(entity)));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<PostView> changeNodeField(Long id, String text, String field) {
+        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
+
+        if (nodeEntityOptional.isPresent()) {
+            PostNodeEntity nodeEntity = nodeEntityOptional.get();
+            nodeEntity = changePostFieldMap.get(field).changeField(field, nodeEntity, text);
+            return Optional.of(converter.postNodeEntityToView(neo4jRepository.save(nodeEntity)));
         } else {
             return Optional.empty();
         }
