@@ -1,8 +1,6 @@
 package com.zavyalov.kiselev.coursework.service;
 
-import com.zavyalov.kiselev.coursework.config.CommandsConfig;
 import com.zavyalov.kiselev.coursework.config.PermissionsConfig;
-import com.zavyalov.kiselev.coursework.service.commands.ICommand;
 import lombok.NoArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -15,28 +13,7 @@ import java.util.Map;
 @Service
 @Scope(value = "singleton")
 @NoArgsConstructor
-public class PermissionManager {
-    /**
-     * returns requested command .
-     * cmdLabel - name of the command for Factory pattern.
-     * arguments - array of arguments for ICommand implementation constructor. May be empty. Depends on command you want to get
-     * <p>
-     * ВАЖНО: Если команды не существует, он вернёт null вместо ошибки.
-     * TODO: разрешения второго уровня (пользователь-пользователю)
-     */
-    public ICommand getCommand(String cmdLabel, Object[] arguments) {
-
-        ICommand cmd = null;
-//        if () {
-        if (checkPermission(cmdLabel)) {
-            ApplicationContext context = new AnnotationConfigApplicationContext(CommandsConfig.class);//Получает бины из конфига, в котором хранятся конструкторы для команд.
-            cmd = (ICommand) (context.getBean(cmdLabel, arguments));
-        }
-
-        return cmd;
-    }
-
-    
+public class PermissionManager implements IPermissionManager {
     public Boolean checkPermission(String cmdLabel) {
         return checkMapRole(cmdLabel) || checkMapUser(cmdLabel);
     }
