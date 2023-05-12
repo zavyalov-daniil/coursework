@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPostService {
-    CommandPackage getPostForm();
-    CommandPackage getAllPosts();
-    CommandPackage findPostById(Long postId);
-    CommandPackage save(PostForm postForm);
-    CommandPackage changeTitle(Long id, String title);
-    CommandPackage changeText(Long id, String text);
-    CommandPackage delete(Long postId);
-    CommandPackage deleteAll();
+    PostForm getPostForm();
+    List<PostView> getAllPosts();
+    Optional<PostView> findPostById(Long postId);
+    PostView save(PostForm postForm);
+    Optional<PostView> changeNodeField(Long id, String title);
+    void delete(Long postId);
+    void deleteAll();
 }

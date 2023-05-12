@@ -2,6 +2,10 @@ package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.service.commands.CommandPackage;
+import com.zavyalov.kiselev.coursework.view.PostView;
+
+import java.util.List;
+import java.util.Optional;
 
 public class PostCommandService implements IPostService {
     IPermissionManager permissionManager;
@@ -9,43 +13,39 @@ public class PostCommandService implements IPostService {
     public PostCommandService(IPermissionManager permissionManager) {
         this.permissionManager = permissionManager;
     }
-    @Override
-    public CommandPackage getPostForm() {
-        return permissionManager.getCommand("GetPostFormCmd", new Object[]{}).Execute();
-    }
 
     @Override
-    public CommandPackage getAllPosts() {
+    public PostForm getPostForm() {
         return null;
     }
 
     @Override
-    public CommandPackage findPostById(Long postId) {
+    public List<PostView> getAllPosts() {
         return null;
     }
 
     @Override
-    public CommandPackage save(PostForm postForm) {
+    public Optional<PostView> findPostById(Long postId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public PostView save(PostForm postForm) {
         return null;
     }
 
     @Override
-    public CommandPackage changeTitle(Long id, String title) {
-        return null;
+    public Optional<PostView> changeNodeField(Long id, String title) {
+        return Optional.empty();
     }
 
     @Override
-    public CommandPackage changeText(Long id, String text) {
-        return null;
+    public void delete(Long postId) {
+
     }
 
     @Override
-    public CommandPackage delete(Long postId) {
-        return null;
-    }
+    public void deleteAll() {
 
-    @Override
-    public CommandPackage deleteAll() {
-        return null;
     }
 }

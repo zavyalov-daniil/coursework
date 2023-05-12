@@ -29,6 +29,7 @@ public class SimplePostService {
         this.postgresRepository = postgresRepository;
         this.neo4jRepository = neo4jRepository;
         this.converter = converter;
+        this.changePostFieldMap = changePostFieldMap;
     }
 
     public PostForm getPostForm() {
@@ -88,12 +89,12 @@ public class SimplePostService {
         }
     }
 
-    public Optional<PostView> changeNodeField(Long id, String text, String field) {
+    public Optional<PostView> changeNodeField(Long id, Object newValue, String field) {
         Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
 
         if (nodeEntityOptional.isPresent()) {
             PostNodeEntity nodeEntity = nodeEntityOptional.get();
-            nodeEntity = changePostFieldMap.get(field).changeField(field, nodeEntity, text);
+            nodeEntity = changePostFieldMap.get(field).changeField(field, nodeEntity, newValue);
             return Optional.of(converter.postNodeEntityToView(neo4jRepository.save(nodeEntity)));
         } else {
             return Optional.empty();
