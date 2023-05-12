@@ -19,6 +19,10 @@ public class PostConverter {
         return new PostView(entity.getId(), entity.getTitle(), entity.getText(), entity.getCreationTime());
     }
 
+    public PostView postNodeEntityToView(PostNodeEntity entity) {
+        return new PostView(entity.getId(), entity.getTitle(), entity.getText(), entity.getCreationTime());
+    }
+
     public PostNodeEntity postFormToNodeEntity(PostForm form) {
         HashSet<PostNodeEntity> parent = new HashSet<>();
         neo4jRepository.findById(form.getParentPostId()).ifPresent(parent::add);
