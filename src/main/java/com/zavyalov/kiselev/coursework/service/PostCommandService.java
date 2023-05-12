@@ -1,7 +1,6 @@
 package com.zavyalov.kiselev.coursework.service;
 
 import com.zavyalov.kiselev.coursework.form.PostForm;
-import com.zavyalov.kiselev.coursework.service.commands.CommandPackage;
 import com.zavyalov.kiselev.coursework.view.PostView;
 
 import java.util.List;
