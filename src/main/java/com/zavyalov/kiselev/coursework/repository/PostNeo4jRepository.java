@@ -7,6 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface PostNeo4jRepository extends Neo4jRepository<PostNodeEntity, Long> {
     @Query("""
             MATCH (p:Post) - [r:PARENT_OF] -> (c:Post)

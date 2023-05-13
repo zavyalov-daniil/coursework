@@ -1,46 +1,65 @@
 package com.zavyalov.kiselev.coursework.service;
 
+import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
 import com.zavyalov.kiselev.coursework.form.PostForm;
+import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
+import com.zavyalov.kiselev.coursework.service.lambda.ChangePostField;
 import com.zavyalov.kiselev.coursework.view.PostView;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
-public class PostService implements IPostService{
+public class PostService {
+    final PostNeo4jRepository neo4jRepository;
+    final PostConverter converter;
+    Map<String, ChangePostField> changePostFieldMap;
 
-    @Override
-    public List<PostView> getAllPosts() {
-        return null;
+    public PostService(PostNeo4jRepository neo4jRepository, PostConverter converter,
+                       @Qualifier("changePostFieldMap") Map<String, ChangePostField> changePostFieldMap) {
+        this.neo4jRepository = neo4jRepository;
+        this.converter = converter;
+        this.changePostFieldMap = changePostFieldMap;
     }
 
-    @Override
-    public PostView findPostById(Integer postId) {
-        return null;
+    public PostForm getPostForm() {
+        return new PostForm();
     }
 
-    @Override
+    public Optional<PostView> findPostById(Long postId) {
+        Optional<PostNodeEntity> res = neo4jRepository.findById(postId);
+        return res.map(entity -> converter.postNodeEntityToView(entity));
+    }
+
     public PostView save(PostForm postForm) {
-        return null;
+        PostNodeEntity nodeEntity = converter.postFormToNodeEntity(postForm);
+        return converter.postNodeEntityToView(neo4jRepository.save(nodeEntity));
     }
 
-    @Override
-    public PostView changeTitle(Integer id, String title) {
-        return null;
+    public Optional<PostView> changeNodeField(Long id, Object newValue, String field) {
+        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
+
+        if (nodeEntityOptional.isPresent()) {
+            PostNodeEntity nodeEntity = nodeEntityOptional.get();
+            nodeEntity = changePostFieldMap.get(field).changeField(field, nodeEntity, newValue);
+            return Optional.of(converter.postNodeEntityToView(neo4jRepository.save(nodeEntity)));
+        } else {
+            return Optional.empty();
+        }
     }
 
-    @Override
-    public PostView changeText(Integer id, String text) {
-        return null;
+    public void delete(Long postId) {
+        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(postId);
+        if (nodeEntityOptional.isPresent()) {
+            PostNodeEntity nodeEntity = nodeEntityOptional.get();
+            nodeEntity.setTitle("");
+            nodeEntity.setText("");
+            neo4jRepository.save(nodeEntity);
+        }
     }
 
-    @Override
-    public void delete(Integer postId) {
-
-    }
-
-    @Override
     public void deleteAll() {
-
+        neo4jRepository.deleteAll();
     }
 }
