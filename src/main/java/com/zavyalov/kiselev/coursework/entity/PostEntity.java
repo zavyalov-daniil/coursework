@@ -13,6 +13,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Deprecated
 @Table(name = "posts")
 public class PostEntity {
     @Id
