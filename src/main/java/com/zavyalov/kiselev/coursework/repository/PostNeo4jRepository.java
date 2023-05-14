@@ -12,25 +12,37 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PostNeo4jRepository extends Neo4jRepository<PostNodeEntity, Long> {
+    /**
+     * Возвращает все дочерние посты по id родительского поста
+     * Возвращаемые сущности хранят родительские посты. Глубина запроса - 1.
+     */
     @Query("""
             MATCH (p:Post) - [r:PARENT_OF] -> (c:Post)
             WHERE ID(p) = $postId
-            WITH c
-            MATCH (c) <- [r:PARENT_OF] - (p:Post)
             RETURN c, collect(r), collect(p)""")
     List<PostNodeEntity> findAllChildPosts(@Param("postId") Long postId);
 
+    /**
+     * Изменяет текст поста
+     * Возвращает изменённую сущность по заданному id или Optional#empty(), если сущность не найдена.
+     * Возвращаемая сущность хранит родительский пост. Глубина запроса - 1.
+     */
     @Query("""
-            MATCH (p:Post)
-            WHERE ID(p) = $postId
-            SET p.text = $newText
-            RETURN p""")
+            MATCH (p:Post) - [r:PARENT_OF] -> (c:Post)
+            WHERE ID(c) = $postId
+            SET c.text = $newText
+            RETURN c, collect(r), collect(p)""")
     Optional<PostNodeEntity> changeText(@Param("postId") Long postId, @Param("newText") String newText);
 
+    /**
+     * Изменяет заголовок поста
+     * Возвращает изменённую сущность по заданному id или Optional#empty(), если сущность не найдена.
+     * Возвращаемая сущность хранит родительский пост. Глубина запроса - 1.
+     */
     @Query("""
-            MATCH (p:Post)
-            WHERE ID(p) = $postId
-            SET p.title = $newTitle
-            RETURN p""")
+            MATCH (p:Post) - [r:PARENT_OF] -> (c:Post)
+            WHERE ID(c) = $postId
+            SET c.title = $newTitle
+            RETURN c, collect(r), collect(p)""")
     Optional<PostNodeEntity> changeTitle(@Param("postId") Long postId, @Param("newTitle") String newTitle);
 }
