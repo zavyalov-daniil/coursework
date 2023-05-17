@@ -1,13 +1,12 @@
 package com.zavyalov.kiselev.coursework.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -21,4 +20,7 @@ public class PermissionEntity {
 
     @Column(name = "permission_name", nullable = false)
     private String permissionName;
+
+    @ManyToMany
+    private Set<RoleEntity> roleset;
 }

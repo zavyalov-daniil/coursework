@@ -21,6 +21,6 @@ public class RoleEntity {
     @Column(name = "role_name", nullable = false)
     private String roleName;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roleset")
     private Set<PermissionEntity> permissionsSet;
 }
