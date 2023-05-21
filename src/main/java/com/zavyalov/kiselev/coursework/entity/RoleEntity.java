@@ -18,7 +18,7 @@ public class RoleEntity {
     @Id
     private Long id;
 
-    @Column(name = "role_name", nullable = false)
+    @Column(name = "role_name", nullable = false, unique = true)
     private String roleName;
 
     @ManyToMany(mappedBy = "roleset")

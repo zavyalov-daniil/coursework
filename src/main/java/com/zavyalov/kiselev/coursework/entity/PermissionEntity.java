@@ -18,7 +18,7 @@ public class PermissionEntity {
     @Id
     private Long id;
 
-    @Column(name = "permission_name", nullable = false)
+    @Column(name = "permission_name", nullable = false, unique = true)
     private String permissionName;
 
     @ManyToMany
