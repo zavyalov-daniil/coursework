@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "permissions")
 public class PermissionEntity {
     @Id
-    private Long id;
+    private Long permissionId;
 
     @Column(name = "permission_name", nullable = false, unique = true)
     private String permissionName;

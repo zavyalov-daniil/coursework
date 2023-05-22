@@ -16,11 +16,11 @@ import java.util.Set;
 @Table(name = "roles")
 public class RoleEntity {
     @Id
-    private Long id;
+    private Long roleId;
 
     @Column(name = "role_name", nullable = false, unique = true)
     private String roleName;
 
-    @ManyToMany(mappedBy = "roleset")
+    @ManyToMany
     private Set<PermissionEntity> permissionsSet;
 }
