@@ -19,7 +19,7 @@ public class PermissionService {
         List<PermissionEntity> entList = repository.findAll();
         List<PermissionView> viewList = new ArrayList<>();
         for (PermissionEntity ent : entList) {
-            viewList.add(new PermissionView(ent.getId(), ent.getPermissionName()));
+            viewList.add(new PermissionView(ent.getPermissionId(), ent.getPermissionName()));
         }
         return viewList;
     }
@@ -29,7 +29,7 @@ public class PermissionService {
         if (ent.isEmpty()) {
             return Optional.empty();
         }
-        Optional<PermissionView> view = Optional.of(new PermissionView(ent.get().getId(), ent.get().getPermissionName()));
+        Optional<PermissionView> view = Optional.of(new PermissionView(ent.get().getPermissionId(), ent.get().getPermissionName()));
         return view;
     }
 }
