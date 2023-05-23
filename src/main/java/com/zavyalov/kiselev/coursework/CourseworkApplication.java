@@ -49,26 +49,26 @@ public class CourseworkApplication {
     @Bean
     CommandLineRunner demoPermissionsAndRoles(PermissionRepository permissionRepository, RoleRepository roleRepository) {
         return args -> {
-            permissionRepository.deleteAll();
             roleRepository.deleteAll();
+            permissionRepository.deleteAll();
 
             List<PermissionEntity> pe = new ArrayList<>();
             Long permissionId = 0L;
-            pe.add(new PermissionEntity(permissionId, "READ_PERSONAL_NOTES", null));
+            pe.add(new PermissionEntity(permissionId, "READ_PERSONAL_NOTES", "author_check", null));
             permissionId++;
-            pe.add(new PermissionEntity(permissionId, "READ_ALL_NOTES", null));
+            pe.add(new PermissionEntity(permissionId, "READ_ALL_NOTES", "default", null));
             permissionId++;
-            pe.add(new PermissionEntity(permissionId, "WRITE_PERSONAL_NODES", null));
+            pe.add(new PermissionEntity(permissionId, "WRITE_PERSONAL_NODES", "author_check", null));
             permissionId++;
-            pe.add(new PermissionEntity(permissionId, "WRITE_ALL_NODES", null));
+            pe.add(new PermissionEntity(permissionId, "WRITE_ALL_NODES", "default", null));
             permissionId++;
-            pe.add(new PermissionEntity(permissionId, "UPDATE_PERSONAL_NODES", null));
+            pe.add(new PermissionEntity(permissionId, "UPDATE_PERSONAL_NODES", "author_check", null));
             permissionId++;
-            pe.add(new PermissionEntity(permissionId, "UPDATE_PUBLIC_NODES", null));
+            pe.add(new PermissionEntity(permissionId, "UPDATE_PUBLIC_NODES", "default", null));
             permissionId++;
-            pe.add(new PermissionEntity(permissionId, "DELETE_PRIVATE_NODES", null));
+            pe.add(new PermissionEntity(permissionId, "DELETE_PRIVATE_NODES", "author_check", null));
             permissionId++;
-            pe.add(new PermissionEntity(permissionId, "DELETE_PUBLIC_NODES", null));
+            pe.add(new PermissionEntity(permissionId, "DELETE_PUBLIC_NODES", "default", null));
             permissionRepository.saveAll(pe);
 
             Long id = 0L;

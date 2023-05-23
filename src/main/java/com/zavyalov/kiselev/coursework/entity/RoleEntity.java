@@ -21,6 +21,6 @@ public class RoleEntity {
     @Column(name = "role_name", nullable = false, unique = true)
     private String roleName;
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private Set<PermissionEntity> permissionsSet;
 }
