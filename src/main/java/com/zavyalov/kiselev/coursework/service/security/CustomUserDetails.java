@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.service.security;
 
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
