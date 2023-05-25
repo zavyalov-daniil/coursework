@@ -4,12 +4,8 @@ import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
 import com.zavyalov.kiselev.coursework.repository.PermissionRepository;
 import com.zavyalov.kiselev.coursework.service.permissions.DefaultPermissionHandler;
 import com.zavyalov.kiselev.coursework.service.permissions.IPermissionHandler;
-import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +38,7 @@ public class PermissionsConfig {
         Map<String, IPermissionHandler> map = new HashMap<>();
         for (PermissionEntity entity : permissionRepository.findAll()) {
             try {
-                ApplicationContext context = new AnnotationConfigReactiveWebApplicationContext();
+                ApplicationContext context = new AnnotationConfigApplicationContext(PermissionHandlersConfig.class);//new AnnotationConfigReactiveWebApplicationContext();
                 IPermissionHandler handler = context.getBean(entity.getHandlerName() + "PermissionHandler", IPermissionHandler.class); //Прописать правила нейминга бинов
                 map.put(entity.getPermissionName(), handler);
             } catch (Exception ex) {
