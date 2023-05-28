@@ -27,7 +27,16 @@ public class PermissionEntity {
     @ManyToOne(cascade = CascadeType.REMOVE)
     private RoleEntity roleset;
 
-//    @Override
-//    public boolean equals() {
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != PermissionEntity.class) {
+            return false;
+        } else {
+            if (
+                    (((PermissionEntity) o).getPermissionId() == this.permissionId) &&
+                            (((PermissionEntity) o).getPermissionName().equals(permissionName))) {
+                return true;
+            } else return false;
+        }
+    }
 }
