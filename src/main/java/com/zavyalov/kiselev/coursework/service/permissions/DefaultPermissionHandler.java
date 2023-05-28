@@ -11,14 +11,6 @@ import lombok.NoArgsConstructor;
 public class DefaultPermissionHandler implements IPermissionHandler {
     @Override
     public Boolean check(Object... args) {
-        String permissionName = (String) args[0];
-        RoleEntity role = (RoleEntity) args[1];
-        Boolean res = false;
-        for (PermissionEntity entity : role.getPermissionsSet()) {
-            if (entity.getPermissionName().equals(permissionName)) {
-                res = true;
-            }
-        }
-        return res;
+        return true;
     }
 }
