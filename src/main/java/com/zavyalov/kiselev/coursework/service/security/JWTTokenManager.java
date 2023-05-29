@@ -11,8 +11,8 @@ import java.util.Date;
 
 @Component
 public class JWTTokenManager {
-    private String secret = "secret";
-    private Long expiration = 6000L;
+    private String secret = SecurityConstants.JWT_SECRET;
+    private Long expiration = SecurityConstants.JWT_EXPIRATION;
 
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
@@ -40,7 +40,7 @@ public class JWTTokenManager {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
         } catch (Exception ex) {
-            throw new AuthenticationCredentialsNotFoundException("JWT was expired or incorrect");
+            throw new AuthenticationCredentialsNotFoundException(ex.getMessage());
         }
     }
 }

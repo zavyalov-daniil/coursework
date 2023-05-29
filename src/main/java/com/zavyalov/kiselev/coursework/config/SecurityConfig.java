@@ -1,5 +1,6 @@
 package com.zavyalov.kiselev.coursework.config;
 
+import com.zavyalov.kiselev.coursework.repository.UserRepository;
 import com.zavyalov.kiselev.coursework.service.security.CustomAuthEntryPoint;
 import com.zavyalov.kiselev.coursework.service.security.CustomUserDetailsService;
 import com.zavyalov.kiselev.coursework.service.security.JWTAuthenticationFilter;
@@ -19,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     private CustomUserDetailsService userDetailsService;
     private CustomAuthEntryPoint authEntryPoint;
 
@@ -39,8 +39,8 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/user/login/**").permitAll()
+                        .requestMatchers("/user/register/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -59,6 +59,6 @@ public class SecurityConfig {
 
     @Bean
     public JWTAuthenticationFilter jwtAuthenticationFilter() {
-        return new JWTAuthenticationFilter();
+        return new JWTAuthenticationFilter(new JWTTokenManager(), userDetailsService);
     }
 }

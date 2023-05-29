@@ -14,16 +14,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
-    @Autowired
     private JWTTokenManager tokenManager;
-    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-//    public JWTAuthenticationFilter(JWTTokenManager tokenGenerator, CustomUserDetailsService customUserDetailsService) {
-//        this.tokenGenerator = tokenGenerator;
-//        this.customUserDetailsService = customUserDetailsService;
-//    }
+    public JWTAuthenticationFilter(JWTTokenManager tokenManager, CustomUserDetailsService customUserDetailsService) {
+        this.tokenManager = tokenManager;
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -43,9 +43,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getJWTFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
+        String bearerToken = request.getHeader(AUTHORIZATION);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+            return bearerToken.substring("Bearer ".length());
         }
         return null;
     }

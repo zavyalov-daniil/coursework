@@ -1,9 +1,7 @@
 package com.zavyalov.kiselev.coursework.service.security;
 
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
-import com.zavyalov.kiselev.coursework.form.RegisterDto;
 import com.zavyalov.kiselev.coursework.repository.UserRepository;
-import com.zavyalov.kiselev.coursework.view.UserView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
