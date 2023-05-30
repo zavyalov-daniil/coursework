@@ -1,16 +1,12 @@
 package com.zavyalov.kiselev.coursework;
 
 import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
-import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
 import com.zavyalov.kiselev.coursework.entity.RoleEntity;
 import com.zavyalov.kiselev.coursework.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PermissionRepository;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
 import com.zavyalov.kiselev.coursework.repository.RoleRepository;
-import com.zavyalov.kiselev.coursework.service.IPostService;
-import com.zavyalov.kiselev.coursework.service.PermissionService;
 import com.zavyalov.kiselev.coursework.service.SimplePostService;
-import com.zavyalov.kiselev.coursework.view.PostView;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

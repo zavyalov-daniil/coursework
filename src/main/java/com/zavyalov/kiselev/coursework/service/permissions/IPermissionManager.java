@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.service.permissions;
 
 
 public interface IPermissionManager {
