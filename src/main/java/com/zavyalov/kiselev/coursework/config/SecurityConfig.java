@@ -1,6 +1,5 @@
 package com.zavyalov.kiselev.coursework.config;
 
-import com.zavyalov.kiselev.coursework.repository.UserRepository;
 import com.zavyalov.kiselev.coursework.service.security.CustomAuthEntryPoint;
 import com.zavyalov.kiselev.coursework.service.security.CustomUserDetailsService;
 import com.zavyalov.kiselev.coursework.service.security.JWTAuthenticationFilter;

@@ -19,7 +19,7 @@ public class JWTTokenManager {
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + expiration);
 
-        return Jwts.builder()
+        return "Bearer " + Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
