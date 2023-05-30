@@ -1,8 +1,6 @@
 package com.zavyalov.kiselev.coursework.controller.permission;
 
-import com.zavyalov.kiselev.coursework.service.PermissionService;
-import com.zavyalov.kiselev.coursework.service.PostService;
-import com.zavyalov.kiselev.coursework.service.SimplePostService;
+import com.zavyalov.kiselev.coursework.service.permissions.PermissionService;
 import com.zavyalov.kiselev.coursework.view.PermissionView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
