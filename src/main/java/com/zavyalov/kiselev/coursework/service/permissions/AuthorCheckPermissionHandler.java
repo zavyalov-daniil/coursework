@@ -7,6 +7,6 @@ public class AuthorCheckPermissionHandler implements IPermissionHandler {
     @Override
     public Boolean check(Object... args) {
         //TODO: Authority checks
-        return null;
+        return true;
     }
 }
