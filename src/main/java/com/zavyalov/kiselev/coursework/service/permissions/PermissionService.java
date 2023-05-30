@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.service.permissions;
 
 import com.zavyalov.kiselev.coursework.config.PermissionHandlersConfig;
 import com.zavyalov.kiselev.coursework.entity.PermissionEntity;

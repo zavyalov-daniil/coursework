@@ -1,20 +1,14 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.service.permissions;
 
 import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
 import com.zavyalov.kiselev.coursework.entity.RoleEntity;
-import com.zavyalov.kiselev.coursework.repository.PermissionRepository;
 import com.zavyalov.kiselev.coursework.repository.RoleRepository;
-import com.zavyalov.kiselev.coursework.service.permissions.IPermissionHandler;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
