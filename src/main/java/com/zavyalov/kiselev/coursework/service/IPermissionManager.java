@@ -2,5 +2,5 @@ package com.zavyalov.kiselev.coursework.service;
 
 
 public interface IPermissionManager {
-    Boolean checkPermission(String cmdLabel);
+    Boolean checkPermission(String cmdLabel) throws Exception;
 }

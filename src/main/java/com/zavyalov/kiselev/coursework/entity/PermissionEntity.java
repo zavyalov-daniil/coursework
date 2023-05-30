@@ -21,6 +21,22 @@ public class PermissionEntity {
     @Column(name = "permission_name", nullable = false, unique = true)
     private String permissionName;
 
-    @ManyToMany
-    private Set<RoleEntity> roleset;
+    @Column(name = "handler_name", nullable = false)
+    private String handlerName;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private RoleEntity roleset;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != PermissionEntity.class) {
+            return false;
+        } else {
+            if (
+                    (((PermissionEntity) o).getPermissionId() == this.permissionId) &&
+                            (((PermissionEntity) o).getPermissionName().equals(permissionName))) {
+                return true;
+            } else return false;
+        }
+    }
 }
