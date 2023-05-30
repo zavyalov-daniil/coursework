@@ -11,11 +11,6 @@ import com.zavyalov.kiselev.coursework.service.security.UserService;
 import com.zavyalov.kiselev.coursework.view.TokenView;
 import com.zavyalov.kiselev.coursework.view.UserView;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,11 +37,5 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserView register(@RequestBody RegisterForm registerForm) {
         return userService.registerNewUser(registerForm);
-    }
-
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public String heh() {
-        return authenticationService.getAuthenticatedUserLogin();
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthenticationService {
     private AuthenticationManager authenticationManager;
@@ -31,14 +33,14 @@ public class AuthenticationService {
         return new TokenView(token);
     }
 
-    public String getAuthenticatedUserLogin() {
+    public Optional<String> getAuthenticatedUserLogin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
             if (principal instanceof UserDetails userDetails) {
-                return userDetails.getUsername();
+                return Optional.of(userDetails.getUsername());
             }
         }
-        return null;
+        return Optional.empty();
     }
 }
