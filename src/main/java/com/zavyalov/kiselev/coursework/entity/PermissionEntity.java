@@ -24,8 +24,8 @@ public class PermissionEntity {
     @Column(name = "handler_name", nullable = false)
     private String handlerName;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private RoleEntity roleset;
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    private Set<RoleEntity> roleset;
 
     @Override
     public boolean equals(Object o) {
