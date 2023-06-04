@@ -74,6 +74,7 @@ public class CourseworkApplication {
             userPermissionsSet.add(permissionRepository.findById(2L).get());
             userPermissionsSet.add(permissionRepository.findById(4L).get());
             userPermissionsSet.add(permissionRepository.findById(6L).get());
+            userPermissionsSet.add(permissionRepository.findById(1L).get());
             mereMortalUser.setPermissionsSet(userPermissionsSet);
 
             RoleEntity allMightyAdmin = new RoleEntity(id + 1, "TEST_ADMIN_ROLE", null);
