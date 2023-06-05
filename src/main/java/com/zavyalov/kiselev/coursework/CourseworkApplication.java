@@ -68,7 +68,7 @@ public class CourseworkApplication {
             permissionRepository.saveAll(pe);
 
             Long id = 0L;
-            RoleEntity mereMortalUser = new RoleEntity(id, "TEST_USER_ROLE", null);
+            RoleEntity mereMortalUser = new RoleEntity(id, "TEST_USER_ROLE", null, null);
             Set<PermissionEntity> userPermissionsSet = new HashSet<>();
             userPermissionsSet.add(permissionRepository.findById(0L).get());
             userPermissionsSet.add(permissionRepository.findById(2L).get());
@@ -77,7 +77,7 @@ public class CourseworkApplication {
             userPermissionsSet.add(permissionRepository.findById(1L).get());
             mereMortalUser.setPermissionsSet(userPermissionsSet);
 
-            RoleEntity allMightyAdmin = new RoleEntity(id + 1, "TEST_ADMIN_ROLE", null);
+            RoleEntity allMightyAdmin = new RoleEntity(id + 1, "TEST_ADMIN_ROLE", null, null);
             Set<PermissionEntity> adminPermissionsSet = new HashSet<>();
             adminPermissionsSet.add(permissionRepository.findById(1L).get());
             adminPermissionsSet.add(permissionRepository.findById(3L).get());
