@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import java.util.Set;
 
@@ -23,4 +24,8 @@ public class RoleEntity {
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     private Set<PermissionEntity> permissionsSet;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @Nullable
+    private Set<UserEntity> userEntities;
 }
