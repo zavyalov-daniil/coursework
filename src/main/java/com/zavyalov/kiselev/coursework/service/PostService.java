@@ -1,5 +1,6 @@
 package com.zavyalov.kiselev.coursework.service;
 
+import com.zavyalov.kiselev.coursework.entity.PostEntity;
 import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
 import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
 import com.zavyalov.kiselev.coursework.form.PostForm;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,6 +33,22 @@ public class PostService {
         this.converter = converter;
         this.changePostFieldMap = changePostFieldMap;
         this.permissionManager = permissionManager;
+    }
+
+    public List<PostView> getAllPosts() throws Exception {
+        Boolean hasPermission = permissionManager.checkPermission("READ_ALL_NOTES");
+        if (hasPermission) {
+            List<PostNodeEntity> entityList = neo4jRepository.findAll();
+            List<PostView> res = new ArrayList<>();
+
+            for (PostNodeEntity post : entityList) {
+                res.add(converter.postNodeEntityToView(post));
+            }
+
+            return res;
+        } else {
+            throw new AccessDeniedException("User doesn't have the requested permission");
+        }
     }
 
     public Optional<PostView> findPostById(Long postId) throws Exception {
