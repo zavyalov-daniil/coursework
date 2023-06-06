@@ -1,14 +1,19 @@
 package com.zavyalov.kiselev.coursework.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -35,4 +40,8 @@ public class UserEntity {
         this.login = login;
         this.password = password;
     }
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @Nullable
+    private RoleEntity role;
 }
