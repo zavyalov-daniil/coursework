@@ -41,34 +41,54 @@ public class PostService {
         }
     }
 
-    public PostView save(PostForm postForm) {
-        PostNodeEntity nodeEntity = converter.postFormToNodeEntity(postForm);
-        return converter.postNodeEntityToView(neo4jRepository.save(nodeEntity));
-    }
-
-    public Optional<PostView> changeNodeField(Long id, Object newValue, String field) {
-        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
-
-        if (nodeEntityOptional.isPresent()) {
-            PostNodeEntity nodeEntity = nodeEntityOptional.get();
-            nodeEntity = changePostFieldMap.get(field).changeField(field, nodeEntity, newValue);
-            return Optional.of(converter.postNodeEntityToView(neo4jRepository.save(nodeEntity)));
+    public PostView save(PostForm postForm) throws Exception {
+        Boolean hasPermission = permissionManager.checkPermission("WRITE_ALL_NODES");
+        if (hasPermission) {
+            PostNodeEntity nodeEntity = converter.postFormToNodeEntity(postForm);
+            return converter.postNodeEntityToView(neo4jRepository.save(nodeEntity));
         } else {
-            return Optional.empty();
+            throw new AccessDeniedException("User doesn't have the requested permission");
         }
     }
 
-    public void delete(Long postId) {
-        Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(postId);
-        if (nodeEntityOptional.isPresent()) {
-            PostNodeEntity nodeEntity = nodeEntityOptional.get();
-            nodeEntity.setTitle("");
-            nodeEntity.setText("");
-            neo4jRepository.save(nodeEntity);
+    public Optional<PostView> changeNodeField(Long id, Object newValue, String field) throws Exception {
+        Boolean hasPermission = permissionManager.checkPermission("UPDATE_PUBLIC_NODES");
+        if (hasPermission) {
+            Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(id);
+
+            if (nodeEntityOptional.isPresent()) {
+                PostNodeEntity nodeEntity = nodeEntityOptional.get();
+                nodeEntity = changePostFieldMap.get(field).changeField(field, nodeEntity, newValue);
+                return Optional.of(converter.postNodeEntityToView(neo4jRepository.save(nodeEntity)));
+            } else {
+                return Optional.empty();
+            }
+        } else {
+            throw new AccessDeniedException("User doesn't have the requested permission");
         }
     }
 
-    public void deleteAll() {
-        neo4jRepository.deleteAll();
+    public void delete(Long postId) throws Exception {
+        Boolean hasPermission = permissionManager.checkPermission("DELETE_PUBLIC_NODES");
+        if (hasPermission) {
+            Optional<PostNodeEntity> nodeEntityOptional = neo4jRepository.findById(postId);
+            if (nodeEntityOptional.isPresent()) {
+                PostNodeEntity nodeEntity = nodeEntityOptional.get();
+                nodeEntity.setTitle("");
+                nodeEntity.setText("");
+                neo4jRepository.save(nodeEntity);
+            } else {
+                throw new AccessDeniedException("User doesn't have the requested permission");
+            }
+        }
+    }
+
+    public void deleteAll() throws Exception {
+        Boolean hasPermission = permissionManager.checkPermission("DELETE_PUBLIC_NODES");
+        if (hasPermission) {
+            neo4jRepository.deleteAll();
+        } else {
+            throw new AccessDeniedException("User doesn't have the requested permission");
+        }
     }
 }
