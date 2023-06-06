@@ -11,7 +11,11 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class UserConverter {
     public UserView entityToView(UserEntity entity) {
-        return new UserView(entity.getId(), entity.getLogin(), new RoleView(entity.getRole().getRoleId(), entity.getRole().getRoleName()));
+        if (entity.getRole() != null) {
+            return new UserView(entity.getId(), entity.getLogin(), new RoleView(entity.getRole().getRoleId(), entity.getRole().getRoleName()));
+        } else {
+            return new UserView(entity.getId(), entity.getLogin(), null);
+        }
     }
 
     public UserEntity registerDtoToEntity(RegisterForm dto) {
