@@ -9,6 +9,7 @@ import com.zavyalov.kiselev.coursework.exception.UserNotFoundException;
 import com.zavyalov.kiselev.coursework.repository.PermissionRepository;
 import com.zavyalov.kiselev.coursework.repository.RoleRepository;
 import com.zavyalov.kiselev.coursework.repository.UserRepository;
+import com.zavyalov.kiselev.coursework.service.security.AuthenticationService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -24,18 +25,22 @@ import java.util.Set;
 @AllArgsConstructor
 public class PermissionManager implements IPermissionManager {
 
-    //    PermissionService permissionService;
     PermissionRepository permissionRepository;
     //    RoleService roleService;
     RoleRepository roleRepository;
     UserRepository userRepository;
+    AuthenticationService authenticationService;
 
     /**
      * Checks first- and second- lvl permissions
      */
-    public Boolean checkPermission(String permissionName, String userName) throws Exception {
+    public Boolean checkPermission(String permissionName) throws Exception {
+        Optional<String> username = authenticationService.getAuthenticatedUserLogin();
+        if (username.isEmpty()) {
+            throw new UserNotFoundException();
+        }
         //todo return microservice.
-        return checkMapRole(permissionName, userName) || checkMapUser(permissionName);
+        return checkMapRole(permissionName, username.get()) || checkMapUser(permissionName);
 
     }
 
