@@ -12,4 +12,6 @@ import lombok.Setter;
 public class UserView {
     private int id;
     private String login;
+
+    private RoleView role;
 }

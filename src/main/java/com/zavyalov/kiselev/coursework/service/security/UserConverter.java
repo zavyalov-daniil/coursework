@@ -2,6 +2,7 @@ package com.zavyalov.kiselev.coursework.service.security;
 
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
 import com.zavyalov.kiselev.coursework.form.RegisterForm;
+import com.zavyalov.kiselev.coursework.view.RoleView;
 import com.zavyalov.kiselev.coursework.view.UserView;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class UserConverter {
     public UserView entityToView(UserEntity entity) {
-        return new UserView(entity.getId(), entity.getLogin());
+        return new UserView(entity.getId(), entity.getLogin(), new RoleView(entity.getRole().getRoleId(), entity.getRole().getRoleName()));
     }
 
     public UserEntity registerDtoToEntity(RegisterForm dto) {
