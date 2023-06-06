@@ -59,7 +59,7 @@ public class PermissionManager implements IPermissionManager {
         Optional<RoleEntity> role = roleRepository.findById(userEntity.get().getRole().getRoleId());//roleRepository.findById(1L).get();
         if (role.isEmpty()) {
             throw new RoleNotFoundException();
-        }x
+        }
 
         //Взять у роли список разрешений
         Set<PermissionEntity> currentRolePermissions = role.get().getPermissionsSet();
