@@ -3,15 +3,18 @@ package com.zavyalov.kiselev.coursework.controller;
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
 import com.zavyalov.kiselev.coursework.form.LoginForm;
 import com.zavyalov.kiselev.coursework.form.RegisterForm;
+import com.zavyalov.kiselev.coursework.form.SetRoleForm;
 import com.zavyalov.kiselev.coursework.service.security.AuthenticationService;
 import com.zavyalov.kiselev.coursework.service.security.UserService;
 import com.zavyalov.kiselev.coursework.view.TokenView;
 import com.zavyalov.kiselev.coursework.view.UserView;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -38,5 +41,19 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserView register(@Valid @RequestBody RegisterForm registerForm, BindingResult result) {
         return userService.registerNewUser(registerForm);
+    }
+
+    @PostMapping("/setRole")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> setRole(@RequestBody SetRoleForm rf) {
+        userService.setRole(rf.getUserId(), rf.getRoleId());
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserView> getAll() {
+        return userService.getAll();
     }
 }
