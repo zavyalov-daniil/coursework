@@ -12,6 +12,7 @@ import com.zavyalov.kiselev.coursework.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -28,15 +29,13 @@ public class PermissionManager implements IPermissionManager {
     //    RoleService roleService;
     RoleRepository roleRepository;
     UserRepository userRepository;
-    String userName;
 
     /**
      * Checks first- and second- lvl permissions
      */
     public Boolean checkPermission(String permissionName, String userName) throws Exception {
         //todo return microservice.
-        this.userName = userName;
-        return checkMapRole(permissionName) || checkMapUser(permissionName);
+        return checkMapRole(permissionName, userName) || checkMapUser(permissionName);
 
     }
 
@@ -45,7 +44,7 @@ public class PermissionManager implements IPermissionManager {
     /**
      * Checks permissions for roles
      */
-    private boolean checkMapRole(String permissionName) throws Exception {
+    private boolean checkMapRole(String permissionName, String userName) throws Exception {
 
         boolean result = false;
 
