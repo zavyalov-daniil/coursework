@@ -3,8 +3,10 @@ package com.zavyalov.kiselev.coursework.service.permissions;
 import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
 import com.zavyalov.kiselev.coursework.entity.RoleEntity;
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
+import com.zavyalov.kiselev.coursework.exception.PermissionNotFoundException;
 import com.zavyalov.kiselev.coursework.exception.RoleNotFoundException;
 import com.zavyalov.kiselev.coursework.exception.UserNotFoundException;
+import com.zavyalov.kiselev.coursework.repository.PermissionRepository;
 import com.zavyalov.kiselev.coursework.repository.RoleRepository;
 import com.zavyalov.kiselev.coursework.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -18,11 +20,11 @@ import java.util.Set;
 
 @Service
 @Scope(value = "singleton")
-@NoArgsConstructor
 @AllArgsConstructor
 public class PermissionManager implements IPermissionManager {
 
-    PermissionService permissionService;
+    //    PermissionService permissionService;
+    PermissionRepository permissionRepository;
     //    RoleService roleService;
     RoleRepository roleRepository;
     UserRepository userRepository;
@@ -57,21 +59,24 @@ public class PermissionManager implements IPermissionManager {
         Optional<RoleEntity> role = roleRepository.findById(userEntity.get().getRole().getRoleId());//roleRepository.findById(1L).get();
         if (role.isEmpty()) {
             throw new RoleNotFoundException();
-        }
-        //(RoleEntity) permissionsContext.getBean("role");//Не подходит, нужна Entity, получать через IRole
+        }x
 
         //Взять у роли список разрешений
         Set<PermissionEntity> currentRolePermissions = role.get().getPermissionsSet();
 
 
         //Чекнуть в списке разрешений нужное
-        PermissionEntity permission = permissionService.findPermissionByName(permissionName);
+        Optional<PermissionEntity> permission = permissionRepository.findPermissionEntitiesByPermissionName(permissionName);//findPermissionByName(permissionName);
+        if (permission.isEmpty()) {
+            throw new PermissionNotFoundException();
+        }
 
         //Проверка на то, что тебе вернули ружное разрешение, вместо null
         if ((currentRolePermissions.contains(permission)) && (permission != null)) {
 
             //Выполнить handler
-            result = permissionService.permissionHandler(permission.getHandlerName()).check();//Передавать параметры?
+//            result = permissionRepository.permissionHandler(permission.getHandlerName()).check();//Передавать параметры?
+            result = true;
 
         } else {
             return false;
