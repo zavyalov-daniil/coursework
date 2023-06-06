@@ -40,7 +40,7 @@ public class PermissionManager implements IPermissionManager {
             throw new UserNotFoundException();
         }
         //todo return microservice.
-        return checkMapRole(permissionName, username.get()) || checkMapUser(permissionName);
+        return checkMapRole(permissionName, username.get());// || checkMapUser(permissionName);
 
     }
 
@@ -74,9 +74,15 @@ public class PermissionManager implements IPermissionManager {
         if (permission.isEmpty()) {
             throw new PermissionNotFoundException();
         }
+        boolean contain = false;
+        for (PermissionEntity ent : currentRolePermissions) {
+            if (ent.equals(permission.get())) {
+                contain = true;
+            }
+        }
 
         //Проверка на то, что тебе вернули ружное разрешение, вместо null
-        if ((currentRolePermissions.contains(permission)) && (permission != null)) {
+        if ((contain) && (permission != null)) {
 
             //Выполнить handler
 //            result = permissionRepository.permissionHandler(permission.getHandlerName()).check();//Передавать параметры?
