@@ -5,13 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserView {
-    private int id;
-    private String login;
+public class RoleView {
+    private Long roleId;
 
-    private RoleView role;
+    private String roleName;
+
+    private Set<PermissionView> permissionSet;
 }
