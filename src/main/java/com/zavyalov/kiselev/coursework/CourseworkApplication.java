@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.config.EnableNeo4jAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import java.util.Set;
 
 @SpringBootApplication
 @EnableNeo4jAuditing
+@EnableScheduling
 public class CourseworkApplication {
 
     public static void main(String[] args) {
