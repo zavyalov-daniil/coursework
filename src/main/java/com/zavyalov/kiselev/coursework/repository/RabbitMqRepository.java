@@ -2,20 +2,19 @@ package com.zavyalov.kiselev.coursework.repository;
 
 import com.zavyalov.kiselev.coursework.entity.RabbitMqMessage;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RabbitMqRepository {
-    private final AmqpTemplate amqpTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-    public RabbitMqRepository(AmqpTemplate amqpTemplate) {
-        this.amqpTemplate = amqpTemplate;
+    public RabbitMqRepository(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
     }
 
-    @Scheduled(fixedDelay = 3000L)
-    public void sendMessage(/*RabbitMqMessage message*/) {
-        RabbitMqMessage message = new RabbitMqMessage("email1", "email2", "sub", "info");
-        amqpTemplate.convertAndSend("mainQueue", message.toString());
+    public void sendMessage(RabbitMqMessage message) {
+        rabbitTemplate.convertAndSend("mainQueue", message);
     }
 }
