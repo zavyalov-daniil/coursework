@@ -10,13 +10,9 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
-
-//@EnableRabbit
 @Component
 public class RabbitMqListener {
     MailService mail;
-
-    //@RabbitListener(queues = "mainQueue")
     RabbitTemplate rabbitTemplate;
 
     public RabbitMqListener(RabbitTemplate rabbitTemplate, MailService mail) {
@@ -24,7 +20,7 @@ public class RabbitMqListener {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @RabbitListener(queues = "mainQueue")
+    @RabbitListener(queues = "${coursework.rabbitmq.default-queue}")
     public void listen(RabbitMqMessage message) {
         Logger logger = LoggerFactory.getLogger(RabbitMqListener.class);
         logger.info("Received message: {}", message.toString());
