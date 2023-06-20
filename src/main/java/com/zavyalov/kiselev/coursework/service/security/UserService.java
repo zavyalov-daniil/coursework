@@ -1,11 +1,14 @@
 package com.zavyalov.kiselev.coursework.service.security;
 
+import com.zavyalov.kiselev.coursework.entity.RabbitMqMessage;
 import com.zavyalov.kiselev.coursework.entity.RoleEntity;
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
 import com.zavyalov.kiselev.coursework.form.RegisterForm;
+import com.zavyalov.kiselev.coursework.repository.RabbitMqRepository;
 import com.zavyalov.kiselev.coursework.repository.RoleRepository;
 import com.zavyalov.kiselev.coursework.repository.UserRepository;
 import com.zavyalov.kiselev.coursework.view.UserView;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +23,31 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private RabbitMqRepository rabbitMqRepository;
 
-    public UserService(UserConverter userConverter, PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository) {
+    @Value("${coursework.rabbitmq.default-from-email}")
+    private String defaultFromEmail;
+
+    public UserService(UserConverter userConverter,
+                       PasswordEncoder passwordEncoder,
+                       UserRepository userRepository,
+                       RoleRepository roleRepository,
+                       RabbitMqRepository rabbitMqRepository) {
         this.userConverter = userConverter;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.rabbitMqRepository = rabbitMqRepository;
     }
 
     public UserView registerNewUser(RegisterForm registerForm) {
         registerForm.setPassword(passwordEncoder.encode(registerForm.getPassword()));
         UserEntity entity = userRepository.save(userConverter.registerDtoToEntity(registerForm));
+        rabbitMqRepository.sendMessage(new RabbitMqMessage(
+                defaultFromEmail,
+                entity.getLogin(),
+                "Регистрация Coursework",
+                "Поздравляем, вы успешно зарегистрированы. Ваш id: " + entity.getId()));
         return userConverter.entityToView(entity);
     }
 
