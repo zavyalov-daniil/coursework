@@ -24,7 +24,7 @@ public class CustomMessageListener {
     }
 
     @RabbitListener(queues = "mainQueue")
-    public void receiveMessage(RabbitMqMessage message) throws IOException {
+    public void receiveMessage(RabbitMqMessage message) {
         log.info("Received message: {}", message.toString());
     }
 }

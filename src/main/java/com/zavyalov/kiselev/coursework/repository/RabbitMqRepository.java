@@ -1,20 +1,22 @@
 package com.zavyalov.kiselev.coursework.repository;
 
 import com.zavyalov.kiselev.coursework.entity.RabbitMqMessage;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 public class RabbitMqRepository {
     private final RabbitTemplate rabbitTemplate;
+
+    @Value("${coursework.rabbitmq.default-queue}")
+    private String defaultQueue;
 
     public RabbitMqRepository(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
     public void sendMessage(RabbitMqMessage message) {
-        rabbitTemplate.convertAndSend("mainQueue", message);
+        rabbitTemplate.convertAndSend(defaultQueue, message);
     }
 }
