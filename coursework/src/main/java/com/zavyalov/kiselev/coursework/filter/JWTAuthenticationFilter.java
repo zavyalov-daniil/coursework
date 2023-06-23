@@ -1,5 +1,7 @@
-package com.zavyalov.kiselev.coursework.service.security;
+package com.zavyalov.kiselev.coursework.filter;
 
+import com.zavyalov.kiselev.coursework.service.security.CustomUserDetailsService;
+import com.zavyalov.kiselev.coursework.util.JWTTokenManager;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

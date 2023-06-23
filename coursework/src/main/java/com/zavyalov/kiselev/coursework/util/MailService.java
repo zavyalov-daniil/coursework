@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.util;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

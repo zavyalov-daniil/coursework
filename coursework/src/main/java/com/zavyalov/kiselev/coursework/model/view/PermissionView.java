@@ -1,19 +1,16 @@
-package com.zavyalov.kiselev.coursework.view;
+package com.zavyalov.kiselev.coursework.model.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostView {
+public class PermissionView {
     private Long id;
-    private String title;
-    private String text;
-    private Date creationTime;
+
+    private String permissionName;
 }

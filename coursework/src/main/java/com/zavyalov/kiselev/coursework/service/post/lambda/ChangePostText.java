@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.service.lambda;
+package com.zavyalov.kiselev.coursework.service.post.lambda;
 
 import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
 

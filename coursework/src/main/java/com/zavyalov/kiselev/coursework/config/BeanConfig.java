@@ -1,12 +1,11 @@
 package com.zavyalov.kiselev.coursework.config;
 
-import com.zavyalov.kiselev.coursework.service.lambda.ChangePostField;
+import com.zavyalov.kiselev.coursework.service.post.lambda.ChangePostField;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;

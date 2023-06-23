@@ -1,7 +1,7 @@
 package com.zavyalov.kiselev.coursework.controller.permission;
 
 import com.zavyalov.kiselev.coursework.service.permissions.PermissionService;
-import com.zavyalov.kiselev.coursework.view.PermissionView;
+import com.zavyalov.kiselev.coursework.model.view.PermissionView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

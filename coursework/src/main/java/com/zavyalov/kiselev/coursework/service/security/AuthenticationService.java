@@ -1,7 +1,8 @@
 package com.zavyalov.kiselev.coursework.service.security;
 
-import com.zavyalov.kiselev.coursework.form.LoginForm;
-import com.zavyalov.kiselev.coursework.view.TokenView;
+import com.zavyalov.kiselev.coursework.model.form.LoginForm;
+import com.zavyalov.kiselev.coursework.model.view.TokenView;
+import com.zavyalov.kiselev.coursework.util.JWTTokenManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

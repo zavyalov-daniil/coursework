@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.view;
+package com.zavyalov.kiselev.coursework.model.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserView {
-    private int id;
-    private String login;
-
-    private RoleView role;
+public class PostForm {
+    private String title;
+    private String text;
+    private Long parentPostId;
 }

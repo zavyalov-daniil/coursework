@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.form;
+package com.zavyalov.kiselev.coursework.model.form;
 
 import lombok.Data;
 

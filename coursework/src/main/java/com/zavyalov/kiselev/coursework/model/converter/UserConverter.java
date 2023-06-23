@@ -1,17 +1,15 @@
-package com.zavyalov.kiselev.coursework.service.security;
+package com.zavyalov.kiselev.coursework.model.converter;
 
 import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
-import com.zavyalov.kiselev.coursework.form.RegisterForm;
-import com.zavyalov.kiselev.coursework.view.PermissionView;
-import com.zavyalov.kiselev.coursework.view.RoleView;
-import com.zavyalov.kiselev.coursework.view.UserView;
+import com.zavyalov.kiselev.coursework.model.form.RegisterForm;
+import com.zavyalov.kiselev.coursework.model.view.PermissionView;
+import com.zavyalov.kiselev.coursework.model.view.RoleView;
+import com.zavyalov.kiselev.coursework.model.view.UserView;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component

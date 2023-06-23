@@ -1,7 +1,7 @@
 package com.zavyalov.kiselev.coursework.controller.permission;
 
 import com.zavyalov.kiselev.coursework.service.permissions.RoleService;
-import com.zavyalov.kiselev.coursework.view.RoleView;
+import com.zavyalov.kiselev.coursework.model.view.RoleView;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

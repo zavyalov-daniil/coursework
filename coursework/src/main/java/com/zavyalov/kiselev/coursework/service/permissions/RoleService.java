@@ -3,8 +3,8 @@ package com.zavyalov.kiselev.coursework.service.permissions;
 import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
 import com.zavyalov.kiselev.coursework.entity.RoleEntity;
 import com.zavyalov.kiselev.coursework.repository.RoleRepository;
-import com.zavyalov.kiselev.coursework.view.PermissionView;
-import com.zavyalov.kiselev.coursework.view.RoleView;
+import com.zavyalov.kiselev.coursework.model.view.PermissionView;
+import com.zavyalov.kiselev.coursework.model.view.RoleView;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

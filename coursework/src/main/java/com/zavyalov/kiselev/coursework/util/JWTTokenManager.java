@@ -1,8 +1,9 @@
-package com.zavyalov.kiselev.coursework.service.security;
+package com.zavyalov.kiselev.coursework.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -11,15 +12,17 @@ import java.util.Date;
 
 @Component
 public class JWTTokenManager {
-    private String secret = SecurityConstants.JWT_SECRET;
-    private Long expiration = SecurityConstants.JWT_EXPIRATION;
+    @Value("${coursework.security.jwt-secret}")
+    private String secret;
+    @Value("${coursework.security.jwt-expiration}")
+    private Long expiration;
 
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + expiration);
 
-        return "Bearer " + Jwts.builder()
+        return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)

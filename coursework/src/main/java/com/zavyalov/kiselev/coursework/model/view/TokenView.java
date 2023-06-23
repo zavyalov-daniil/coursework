@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.view;
+package com.zavyalov.kiselev.coursework.model.view;
 
 import lombok.Data;
 

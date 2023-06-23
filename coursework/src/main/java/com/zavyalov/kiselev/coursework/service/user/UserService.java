@@ -1,13 +1,14 @@
-package com.zavyalov.kiselev.coursework.service.security;
+package com.zavyalov.kiselev.coursework.service.user;
 
 import com.zavyalov.kiselev.coursework.entity.RabbitMqMessage;
 import com.zavyalov.kiselev.coursework.entity.RoleEntity;
 import com.zavyalov.kiselev.coursework.entity.UserEntity;
-import com.zavyalov.kiselev.coursework.form.RegisterForm;
+import com.zavyalov.kiselev.coursework.model.converter.UserConverter;
+import com.zavyalov.kiselev.coursework.model.form.RegisterForm;
 import com.zavyalov.kiselev.coursework.repository.RabbitMqRepository;
 import com.zavyalov.kiselev.coursework.repository.RoleRepository;
 import com.zavyalov.kiselev.coursework.repository.UserRepository;
-import com.zavyalov.kiselev.coursework.view.UserView;
+import com.zavyalov.kiselev.coursework.model.view.UserView;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserService {

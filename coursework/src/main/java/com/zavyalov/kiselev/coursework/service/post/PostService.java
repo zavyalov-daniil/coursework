@@ -1,15 +1,13 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.service.post;
 
-import com.zavyalov.kiselev.coursework.entity.PostEntity;
 import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
-import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
-import com.zavyalov.kiselev.coursework.form.PostForm;
+import com.zavyalov.kiselev.coursework.model.converter.PostConverter;
+import com.zavyalov.kiselev.coursework.model.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
-import com.zavyalov.kiselev.coursework.service.lambda.ChangePostField;
+import com.zavyalov.kiselev.coursework.service.post.lambda.ChangePostField;
 import com.zavyalov.kiselev.coursework.service.permissions.PermissionManager;
-import com.zavyalov.kiselev.coursework.view.PostView;
+import com.zavyalov.kiselev.coursework.model.view.PostView;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 

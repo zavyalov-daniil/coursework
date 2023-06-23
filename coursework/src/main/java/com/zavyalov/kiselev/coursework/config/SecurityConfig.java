@@ -1,9 +1,9 @@
 package com.zavyalov.kiselev.coursework.config;
 
-import com.zavyalov.kiselev.coursework.service.security.CustomAuthEntryPoint;
+import com.zavyalov.kiselev.coursework.filter.CustomAuthEntryPoint;
 import com.zavyalov.kiselev.coursework.service.security.CustomUserDetailsService;
-import com.zavyalov.kiselev.coursework.service.security.JWTAuthenticationFilter;
-import com.zavyalov.kiselev.coursework.service.security.JWTTokenManager;
+import com.zavyalov.kiselev.coursework.filter.JWTAuthenticationFilter;
+import com.zavyalov.kiselev.coursework.util.JWTTokenManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

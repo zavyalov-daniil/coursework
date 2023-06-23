@@ -1,12 +1,13 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.service.post;
 
 import com.zavyalov.kiselev.coursework.entity.PostEntity;
 import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
-import com.zavyalov.kiselev.coursework.form.PostForm;
+import com.zavyalov.kiselev.coursework.model.converter.PostConverter;
+import com.zavyalov.kiselev.coursework.model.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
 import com.zavyalov.kiselev.coursework.repository.PostRepository;
-import com.zavyalov.kiselev.coursework.service.lambda.ChangePostField;
-import com.zavyalov.kiselev.coursework.view.PostView;
+import com.zavyalov.kiselev.coursework.service.post.lambda.ChangePostField;
+import com.zavyalov.kiselev.coursework.model.view.PostView;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

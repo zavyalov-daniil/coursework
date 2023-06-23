@@ -3,19 +3,14 @@ package com.zavyalov.kiselev.coursework.service.permissions;
 import com.zavyalov.kiselev.coursework.config.PermissionHandlersConfig;
 import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
 import com.zavyalov.kiselev.coursework.repository.PermissionRepository;
-import com.zavyalov.kiselev.coursework.service.permissions.DefaultPermissionHandler;
-import com.zavyalov.kiselev.coursework.service.permissions.IPermissionHandler;
-import com.zavyalov.kiselev.coursework.view.PermissionView;
+import com.zavyalov.kiselev.coursework.model.view.PermissionView;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service

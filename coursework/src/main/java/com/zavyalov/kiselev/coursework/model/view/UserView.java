@@ -1,4 +1,4 @@
-package com.zavyalov.kiselev.coursework.view;
+package com.zavyalov.kiselev.coursework.model.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PermissionView {
-    private Long id;
+public class UserView {
+    private int id;
+    private String login;
 
-    private String permissionName;
+    private RoleView role;
 }

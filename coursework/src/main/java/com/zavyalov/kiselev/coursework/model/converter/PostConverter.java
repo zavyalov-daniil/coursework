@@ -1,10 +1,10 @@
-package com.zavyalov.kiselev.coursework.service;
+package com.zavyalov.kiselev.coursework.model.converter;
 
 import com.zavyalov.kiselev.coursework.entity.PostEntity;
 import com.zavyalov.kiselev.coursework.entity.PostNodeEntity;
-import com.zavyalov.kiselev.coursework.form.PostForm;
+import com.zavyalov.kiselev.coursework.model.form.PostForm;
 import com.zavyalov.kiselev.coursework.repository.PostNeo4jRepository;
-import com.zavyalov.kiselev.coursework.view.PostView;
+import com.zavyalov.kiselev.coursework.model.view.PostView;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

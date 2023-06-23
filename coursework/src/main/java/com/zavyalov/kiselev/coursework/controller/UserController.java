@@ -1,13 +1,12 @@
 package com.zavyalov.kiselev.coursework.controller;
 
-import com.zavyalov.kiselev.coursework.entity.UserEntity;
-import com.zavyalov.kiselev.coursework.form.LoginForm;
-import com.zavyalov.kiselev.coursework.form.RegisterForm;
-import com.zavyalov.kiselev.coursework.form.SetRoleForm;
+import com.zavyalov.kiselev.coursework.model.form.LoginForm;
+import com.zavyalov.kiselev.coursework.model.form.RegisterForm;
+import com.zavyalov.kiselev.coursework.model.form.SetRoleForm;
 import com.zavyalov.kiselev.coursework.service.security.AuthenticationService;
-import com.zavyalov.kiselev.coursework.service.security.UserService;
-import com.zavyalov.kiselev.coursework.view.TokenView;
-import com.zavyalov.kiselev.coursework.view.UserView;
+import com.zavyalov.kiselev.coursework.service.user.UserService;
+import com.zavyalov.kiselev.coursework.model.view.TokenView;
+import com.zavyalov.kiselev.coursework.model.view.UserView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

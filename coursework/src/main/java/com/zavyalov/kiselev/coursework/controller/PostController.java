@@ -1,11 +1,9 @@
 package com.zavyalov.kiselev.coursework.controller;
 
 import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
-import com.zavyalov.kiselev.coursework.form.PostForm;
-import com.zavyalov.kiselev.coursework.service.IPostService;
-import com.zavyalov.kiselev.coursework.service.PostService;
-import com.zavyalov.kiselev.coursework.service.SimplePostService;
-import com.zavyalov.kiselev.coursework.view.PostView;
+import com.zavyalov.kiselev.coursework.model.form.PostForm;
+import com.zavyalov.kiselev.coursework.service.post.PostService;
+import com.zavyalov.kiselev.coursework.model.view.PostView;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
