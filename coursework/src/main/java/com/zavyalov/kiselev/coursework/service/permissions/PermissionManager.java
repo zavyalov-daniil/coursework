@@ -11,9 +11,7 @@ import com.zavyalov.kiselev.coursework.repository.RoleRepository;
 import com.zavyalov.kiselev.coursework.repository.UserRepository;
 import com.zavyalov.kiselev.coursework.service.security.AuthenticationService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

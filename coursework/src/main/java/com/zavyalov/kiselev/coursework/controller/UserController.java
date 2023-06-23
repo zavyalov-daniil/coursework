@@ -18,8 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private AuthenticationService authenticationService;
-    private UserService userService;
+    private final AuthenticationService authenticationService;
+    private final UserService userService;
 
     public UserController(AuthenticationService authenticationService, UserService userService) {
         this.authenticationService = authenticationService;

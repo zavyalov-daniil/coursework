@@ -1,13 +1,12 @@
 package com.zavyalov.kiselev.coursework.controller.permission;
 
+import com.zavyalov.kiselev.coursework.exception.PermissionNotFoundException;
 import com.zavyalov.kiselev.coursework.service.permissions.PermissionService;
 import com.zavyalov.kiselev.coursework.model.view.PermissionView;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/permissions")
@@ -26,11 +25,8 @@ public class PermissionController {
 
     @GetMapping(path = "/{permissionId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<PermissionView> getPermissionById(@PathVariable Long permissionId) {
-        Optional<PermissionView> opt = service.getById(permissionId);
-        if (opt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.of(opt);
+    public PermissionView getPermissionById(@PathVariable Long permissionId) {
+        return service.getById(permissionId)
+                .orElseThrow(() -> new PermissionNotFoundException("Permission with id + " + permissionId + " not found"));
     }
 }

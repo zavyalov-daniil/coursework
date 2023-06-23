@@ -1,6 +1,11 @@
 package com.zavyalov.kiselev.coursework.controller;
 
+import com.zavyalov.kiselev.coursework.exception.EntityNotFoundException;
+import com.zavyalov.kiselev.coursework.exception.PermissionNotFoundException;
 import com.zavyalov.kiselev.coursework.exception.PostNotFoundException;
+import com.zavyalov.kiselev.coursework.exception.RoleNotFoundException;
+import com.zavyalov.kiselev.coursework.exception.UserNotFoundException;
+import com.zavyalov.kiselev.coursework.model.view.AppError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -13,23 +18,74 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<AppError> catchException(Exception e) {
-        return new ResponseEntity<>(
-                new AppError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal server error " + e.getMessage() + e.getClass().toString()), HttpStatus.INTERNAL_SERVER_ERROR
-        );
+        AppError errorResponse =
+                new AppError("Internal server error. Exception: " + e.getClass().toString() +
+                        ". Message: " + e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<AppError> handleEntityNotFoundException(EntityNotFoundException e) {
+        AppError errorResponse =
+                new AppError(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(PermissionNotFoundException.class)
+    public ResponseEntity<AppError> handlePermissionNotFoundException(PermissionNotFoundException e) {
+        AppError errorResponse =
+                new AppError(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
     }
 
     @ExceptionHandler(PostNotFoundException.class)
     public ResponseEntity<AppError> handlePostNotFoundException(PostNotFoundException e) {
-        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), "Post not found"), HttpStatus.NOT_FOUND);
+        AppError errorResponse =
+                new AppError(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<AppError> handlePostNotFoundException(UsernameNotFoundException e) {
-        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), "Username not found"), HttpStatus.NOT_FOUND);
+    public ResponseEntity<AppError> handleUsernameNotFoundException(UsernameNotFoundException e) {
+        AppError errorResponse =
+                new AppError(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<AppError> handleRoleNotFoundException(UsernameNotFoundException e) {
+        AppError errorResponse =
+                new AppError(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<AppError> handleUserNotFoundException(UserNotFoundException e) {
+        AppError errorResponse =
+                new AppError(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<AppError> handlePostNotFoundException(AccessDeniedException e) {
-        return new ResponseEntity<>(new AppError(HttpStatus.FORBIDDEN.value(), "Access denied"), HttpStatus.FORBIDDEN);
+    public ResponseEntity<AppError> handleAccessDeniedException(AccessDeniedException e) {
+        AppError errorResponse =
+                new AppError(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
     }
 }
