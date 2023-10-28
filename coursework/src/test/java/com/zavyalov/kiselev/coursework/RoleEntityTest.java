@@ -1,6 +1,6 @@
 package com.zavyalov.kiselev.coursework;
 
-import com.zavyalov.kiselev.coursework.entity.PermissionEntity;
+import com.zavyalov.kiselev.coursework.model.PermissionEntity;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
